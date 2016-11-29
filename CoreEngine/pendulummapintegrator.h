@@ -70,7 +70,7 @@ private:
   std::vector<Point> m_mapData;
 };
 
-namespace impl_detail {
+namespace {
 inline bool isNearAttractor(double attX, double attY, double currX,
                             double currY, double threshold) {
   return (attX - threshold < currX) && (currX < attX + threshold) &&
@@ -90,7 +90,6 @@ integratePoint(Integrator &&theIntegrator, const PendulumSystem &theSystem,
                double attractorPositionThreshold, double midPositionThreshold,
                double convergeTimeThreshold) {
 
-  using namespace impl_detail;
   // check if the point is within the pendulum length boundary
   if (std::sqrt(std::pow(thePoint.xPosition, 2) +
                 std::pow(thePoint.yPosition, 2)) > (theSystem.length - 1e-10))
