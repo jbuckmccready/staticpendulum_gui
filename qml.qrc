@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/PendulumAttractorsPage.qml</file>
+        <file>qml/Main.qml</file>
+        <file>qml/PendulumSystemPage.qml</file>
+        <file>qml/PendulumParametersPage.qml</file>
+        <file>qml/MapParametersPage.qml</file>
+        <file>qml/IntegratorParametersPage.qml</file>
+        <file>qml/PendulumAttractorsHeader.qml</file>
+        <file>qml/LabelWithHoverToolTip.qml</file>
+        <file>qml/TextFieldWithNumericValidation.qml</file>
+    </qresource>
+</RCC>
