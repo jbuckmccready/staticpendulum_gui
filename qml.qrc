@@ -9,5 +9,6 @@
         <file>qml/PendulumAttractorsHeader.qml</file>
         <file>qml/LabelWithHoverToolTip.qml</file>
         <file>qml/TextFieldWithNumericValidation.qml</file>
+        <file>qml/ColorDialog.qml</file>
     </qresource>
 </RCC>

@@ -24,7 +24,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
-import QtQuick.Dialogs 1.2
 
 ColumnLayout {
   id: rootColumn
@@ -165,28 +164,38 @@ ColumnLayout {
                   anchors.margins: 10
                   z: activeFocus ? 1 : -1
                   onClicked: {
-                    colorDialog.color = model.color
-                    colorDialog.open()
-                    colorSelectorButton.isPickingColor = true
+                    colorSelectorButton.isPickingColor = true;
+
+                    // Load the color dialog if it's not loaded yet
+                    colorDialogLoader.active = true;
+                    // Handler if color dialog is accepted
+                    function onAccepted() {
+                        model.color = colorDialogLoader.item.color;
+                        colorSelectorButton.isPickingColor = false;
+                        disconnectHandlers();
+                    }
+
+                    // Handler if color dialog is rejected
+                    function onRejected() {
+                        colorSelectorButton.isPickingColor = false;
+                        disconnectHandlers();
+                    }
+
+                    function disconnectHandlers() {
+                        colorDialogLoader.item.accepted.disconnect(onAccepted);
+                        colorDialogLoader.item.rejected.disconnect(onRejected);
+                    }
+                    // Connect handlers and open dialog
+                    colorDialogLoader.item.accepted.connect(onAccepted);
+                    colorDialogLoader.item.rejected.connect(onRejected);
+                    colorDialogLoader.item.color = model.color;
+                    colorDialogLoader.item.open();
                   }
                   background: Rectangle {
                     anchors.fill: parent
                     color: model.color
                     border.color: "grey"
                     border.width: 3
-                  }
-                  Connections {
-                    target: colorDialog
-                    onAccepted: {
-                      if (attractorsListView.currentIndex === model.index) {
-                        model.color = colorDialog.color;
-                        colorSelectorButton.isPickingColor = false;
-                      }
-                    }
-                    onRejected: {
-                      if (attractorsListView.currentIndex === model.index)
-                        colorSelectorButton.isPickingColor = false;
-                    }
                   }
                 }
               }
@@ -225,17 +234,18 @@ ColumnLayout {
           return;
         }
 
-        pendulumSystemModel.attractorList.removeAttractor(attractorsListView.currentIndex)
+        pendulumSystemModel.attractorList.removeAttractor(attractorsListView.currentIndex);
       }
     }
 
   }
-  ColorDialog {
-    id: colorDialog
-    title: "Please choose a color"
-    modality: Qt.ApplicationModal
-  }
+  Loader {
+    id: colorDialogLoader
+    // active == false for lazy loading, set to true when used
+    active: false
 
+    source: "ColorDialog.qml"
+  }
 }
 
 
