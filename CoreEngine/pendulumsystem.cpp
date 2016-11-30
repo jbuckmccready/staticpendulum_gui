@@ -23,40 +23,34 @@
  * ===========================================================================*/
 #include "pendulumsystem.h"
 
-//! Default constructor sets default pendulum properties, and k = 1.0 for three attractors positioned at: \f$(-0.5, \sqrt{3}/2)\f$, \f$(-0.5, -\sqrt{3}/2)\f$, and \f$(1, 0)\f$.
-PendulumSystem::PendulumSystem() :
-  distance{0.05},
-  mass{1.0},
-  gravity{9.8},
-  drag{0.2},
-  length{10.0}
-{
-}
+//! Default constructor sets default pendulum properties, and k = 1.0 for three
+//! attractors positioned at: \f$(-0.5, \sqrt{3}/2)\f$, \f$(-0.5,
+//! -\sqrt{3}/2)\f$, and \f$(1, 0)\f$.
+PendulumSystem::PendulumSystem()
+    : distance{0.05}, mass{1.0}, gravity{9.8}, drag{0.2}, length{10.0} {}
 
-//! Add an attractor at position (xPosition, yPosition) with attractive force coefficient forceCoeff.
-void PendulumSystem::addAttractor(double xPosition, double yPosition, double forceCoeff = 1.0)
-{
+//! Add an attractor at position (xPosition, yPosition) with attractive force
+//! coefficient forceCoeff.
+void PendulumSystem::addAttractor(double xPosition, double yPosition,
+                                  double forceCoeff = 1.0) {
   attractorList.emplace_back(Attractor{xPosition, yPosition, forceCoeff});
 }
 
-//! Set new position and attraction strength for already existing attractor at an index.
-void PendulumSystem::setAttractor(int index, double xPosition, double yPosition, double forceCoeff)
-{
+//! Set new position and attraction strength for already existing attractor at
+//! an index.
+void PendulumSystem::setAttractor(int index, double xPosition, double yPosition,
+                                  double forceCoeff) {
   attractorList[index].xPosition = xPosition;
   attractorList[index].yPosition = yPosition;
   attractorList[index].forceCoeff = forceCoeff;
 }
 
 //! Set all the attractor strengths to the same value.
-void PendulumSystem::setAllAttractorStrengths(double forceCoeff)
-{
+void PendulumSystem::setAllAttractorStrengths(double forceCoeff) {
   for (auto &attractor : attractorList) {
     attractor.forceCoeff = forceCoeff;
   }
 }
 
 //! Clear all attractors.
-void PendulumSystem::clearAttractors()
-{
-  attractorList.clear();
-}
+void PendulumSystem::clearAttractors() { attractorList.clear(); }

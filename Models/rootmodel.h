@@ -24,14 +24,15 @@
 #ifndef ROOTMODEL_H
 #define ROOTMODEL_H
 #include "integratormodel.h"
-#include "pendulumsystemmodel.h"
 #include "pendulummapmodel.h"
+#include "pendulumsystemmodel.h"
 #include <QObject>
 
 /// Class to hold all the models and handle loading/saving models.
 class RootModel : public QObject {
   Q_OBJECT
-  Q_PROPERTY(PendulumSystemModel *pendulumSystemModel READ pendulumSystemModel CONSTANT)
+  Q_PROPERTY(PendulumSystemModel *pendulumSystemModel READ pendulumSystemModel
+                 CONSTANT)
   Q_PROPERTY(PendulumMapModel *pendulumMapModel READ pendulumMapModel CONSTANT)
   Q_PROPERTY(IntegratorModel *integratorModel READ integratorModel CONSTANT)
 

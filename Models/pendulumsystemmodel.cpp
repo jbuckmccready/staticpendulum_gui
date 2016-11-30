@@ -24,8 +24,7 @@
 #include "pendulumsystemmodel.h"
 #include <cmath>
 
-PendulumSystemModel::PendulumSystemModel(QObject *parent)
-    : QObject{parent} {
+PendulumSystemModel::PendulumSystemModel(QObject *parent) : QObject{parent} {
   m_pendulumSystem.distance = 0.05;
   m_pendulumSystem.mass = 1.0;
   m_pendulumSystem.gravity = 9.8;
@@ -39,7 +38,6 @@ PendulumSystemModel::PendulumSystemModel(QObject *parent)
 //  for (int i = 0; i < 1000; ++i) {
 //    m_attractorList.addAttractor(1, 2, 3, QColor("orange"));
 //  }
-
 }
 
 AttractorListModel *PendulumSystemModel::attractorList() {

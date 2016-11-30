@@ -27,17 +27,19 @@
 #include "Models/pendulummapmodel.h"
 #include "Models/pendulumsystemmodel.h"
 #include <CoreEngine/pendulummapintegrator.h>
-#include <QObject>
 #include <QFutureWatcher>
-#include <memory>
+#include <QObject>
 #include <map>
+#include <memory>
 
 /// QML type to manage integrating pendulum system.
 class SystemIntegrator : public QObject {
   Q_OBJECT
   Q_PROPERTY(int progressValue READ progressValue NOTIFY progressValueChanged)
-  Q_PROPERTY(int progressMinimum READ progressMinimum NOTIFY progressMinimumChanged)
-  Q_PROPERTY(int progressMaximum READ progressMaximum NOTIFY progressMaximumChanged)
+  Q_PROPERTY(
+      int progressMinimum READ progressMinimum NOTIFY progressMinimumChanged)
+  Q_PROPERTY(
+      int progressMaximum READ progressMaximum NOTIFY progressMaximumChanged)
 public:
   explicit SystemIntegrator(QObject *parent = 0);
 
@@ -68,7 +70,6 @@ private:
   void setProgressMaximum(int progressMaximum);
   staticpendulum::Map m_pointMap;
   std::map<int, QColor> m_colorMap;
-
 };
 
 #endif // SYSTEMINTEGRATOR_H

@@ -25,7 +25,9 @@
 
 RootModel::RootModel(QObject *parent) : QObject(parent) {}
 
-PendulumSystemModel *RootModel::pendulumSystemModel() { return &m_pendulumSystemModel; }
+PendulumSystemModel *RootModel::pendulumSystemModel() {
+  return &m_pendulumSystemModel;
+}
 
 IntegratorModel *RootModel::integratorModel() { return &m_integratorModel; }
 

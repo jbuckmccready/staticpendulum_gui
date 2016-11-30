@@ -36,7 +36,8 @@ int main(int argc, char *argv[]) {
   qmlRegisterType<SystemIntegrator>("QmlHelpers", 1, 0, "SystemIntegrator");
 
   QQmlApplicationEngine engine;
-  engine.rootContext()->setContextProperty("applicationDirPath", qApp->applicationDirPath());
+  engine.rootContext()->setContextProperty("applicationDirPath",
+                                           qApp->applicationDirPath());
 
   auto *rootModel = new RootModel();
   engine.rootContext()->setContextProperty("pendulumSystemModel",

@@ -23,8 +23,8 @@
  * ===========================================================================*/
 #ifndef PENDULUMSYSTEMMODEL_H
 #define PENDULUMSYSTEMMODEL_H
-#include "attractorlistmodel.h"
 #include "CoreEngine/pendulumsystem.h"
+#include "attractorlistmodel.h"
 #include <QObject>
 #include <memory>
 

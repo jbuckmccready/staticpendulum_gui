@@ -25,8 +25,8 @@
 #include "CoreEngine/cashkarp54.h"
 #include "CoreEngine/pendulummapintegrator.h"
 #include <QFutureWatcher>
-#include <QtConcurrent/QtConcurrent>
 #include <QImage>
+#include <QtConcurrent/QtConcurrent>
 
 SystemIntegrator::SystemIntegrator(QObject *parent) : QObject(parent) {
   QObject::connect(&m_futureWatcher, &QFutureWatcher<void>::finished, this,
@@ -75,7 +75,8 @@ void SystemIntegrator::integrateMap(PendulumSystemModel *pendulumSystemModel,
                                    midPosThreshold, convergeTimeThreshold);
   };
 
-  QThreadPool::globalInstance()->setMaxThreadCount(integratorModel->threadCount());
+  QThreadPool::globalInstance()->setMaxThreadCount(
+      integratorModel->threadCount());
 
   // set the point map
   m_pointMap = staticpendulum::Map(
@@ -94,8 +95,8 @@ void SystemIntegrator::integrateMap(PendulumSystemModel *pendulumSystemModel,
   }
 
   // start integrating the points
-  m_futureWatcher.setFuture(QtConcurrent::map(
-      m_pointMap.begin(), m_pointMap.end(), integratePoint));
+  m_futureWatcher.setFuture(
+      QtConcurrent::map(m_pointMap.begin(), m_pointMap.end(), integratePoint));
 }
 
 void SystemIntegrator::cancelIntegration() {
@@ -103,8 +104,7 @@ void SystemIntegrator::cancelIntegration() {
   m_futureWatcher.waitForFinished();
 }
 
-void SystemIntegrator::createImageFile()
-{
+void SystemIntegrator::createImageFile() {
   const auto rows = m_pointMap.rows();
   const auto cols = m_pointMap.cols();
   QImage image(cols, rows, QImage::Format_RGB32);
@@ -113,7 +113,8 @@ void SystemIntegrator::createImageFile()
     for (std::size_t x = 0; x < cols; ++x) {
       // data is row major oriented
       int index = y * cols + x;
-      const int convergePosition = (m_pointMap.begin() + index)->convergePosition;
+      const int convergePosition =
+          (m_pointMap.begin() + index)->convergePosition;
       const QColor color = m_colorMap[convergePosition];
       image.setPixelColor(x, y, color);
     }

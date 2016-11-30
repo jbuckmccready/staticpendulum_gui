@@ -34,12 +34,18 @@ class PendulumMapModel : public QObject {
   Q_PROPERTY(double yStart READ yStart WRITE setYStart NOTIFY yStartChanged)
   Q_PROPERTY(double xEnd READ xEnd WRITE setXEnd NOTIFY xEndChanged)
   Q_PROPERTY(double yEnd READ yEnd WRITE setYEnd NOTIFY yEndChanged)
-  Q_PROPERTY(double resolution READ resolution WRITE setResolution NOTIFY resolutionChanged)
-  Q_PROPERTY(double attractorPosThreshold READ attractorPosThreshold WRITE setAttractorPosThreshold NOTIFY attractorPosThresholdChanged)
-  Q_PROPERTY(double midPosThreshold READ midPosThreshold WRITE setMidPosThreshold NOTIFY midPosThresholdChanged)
-  Q_PROPERTY(double convergeTimeThreshold READ convergeTimeThreshold WRITE setConvergeTimeThreshold NOTIFY convergeTimeThresholdChanged)
-  Q_PROPERTY(QColor midConvergeColor READ midConvergeColor WRITE setMidConvergeColor NOTIFY midConvergeColorChanged)
-  Q_PROPERTY(QColor outOfBoundsColor READ outOfBoundsColor WRITE setOutOfBoundsColor NOTIFY outOfBoundsColorChanged)
+  Q_PROPERTY(double resolution READ resolution WRITE setResolution NOTIFY
+                 resolutionChanged)
+  Q_PROPERTY(double attractorPosThreshold READ attractorPosThreshold WRITE
+                 setAttractorPosThreshold NOTIFY attractorPosThresholdChanged)
+  Q_PROPERTY(double midPosThreshold READ midPosThreshold WRITE
+                 setMidPosThreshold NOTIFY midPosThresholdChanged)
+  Q_PROPERTY(double convergeTimeThreshold READ convergeTimeThreshold WRITE
+                 setConvergeTimeThreshold NOTIFY convergeTimeThresholdChanged)
+  Q_PROPERTY(QColor midConvergeColor READ midConvergeColor WRITE
+                 setMidConvergeColor NOTIFY midConvergeColorChanged)
+  Q_PROPERTY(QColor outOfBoundsColor READ outOfBoundsColor WRITE
+                 setOutOfBoundsColor NOTIFY outOfBoundsColorChanged)
 
 public:
   explicit PendulumMapModel(QObject *parent = 0);
