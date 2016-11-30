@@ -164,32 +164,35 @@ ColumnLayout {
                   anchors.margins: 10
                   z: activeFocus ? 1 : -1
                   onClicked: {
+                    // Force the color dialog to finish loading (if it's not yet loaded)
+                    // before continuing
+                    colorDialogLoader.asynchronous = false;
+
+                    var colorDialog = colorDialogLoader.item;
                     colorSelectorButton.isPickingColor = true;
 
-                    // Load the color dialog if it's not loaded yet
-                    colorDialogLoader.active = true;
                     // Handler if color dialog is accepted
                     function onAccepted() {
-                        model.color = colorDialogLoader.item.color;
+                        model.color = colorDialog.color;
                         colorSelectorButton.isPickingColor = false;
                         disconnectHandlers();
                     }
 
                     // Handler if color dialog is rejected
                     function onRejected() {
-                        colorSelectorButton.isPickingColor = false;
-                        disconnectHandlers();
+                      colorSelectorButton.isPickingColor = false;
+                      disconnectHandlers();
                     }
 
                     function disconnectHandlers() {
-                        colorDialogLoader.item.accepted.disconnect(onAccepted);
-                        colorDialogLoader.item.rejected.disconnect(onRejected);
+                      colorDialog.accepted.disconnect(onAccepted);
+                      colorDialog.rejected.disconnect(onRejected);
                     }
                     // Connect handlers and open dialog
-                    colorDialogLoader.item.accepted.connect(onAccepted);
-                    colorDialogLoader.item.rejected.connect(onRejected);
-                    colorDialogLoader.item.color = model.color;
-                    colorDialogLoader.item.open();
+                    colorDialog.accepted.connect(onAccepted);
+                    colorDialog.rejected.connect(onRejected);
+                    colorDialog.color = model.color;
+                    colorDialog.open();
                   }
                   background: Rectangle {
                     anchors.fill: parent
@@ -241,8 +244,8 @@ ColumnLayout {
   }
   Loader {
     id: colorDialogLoader
-    // active == false for lazy loading, set to true when used
-    active: false
+    // asynchronous == true to compile and load the ColorDialog in another thread
+    asynchronous: true
 
     source: "ColorDialog.qml"
   }
