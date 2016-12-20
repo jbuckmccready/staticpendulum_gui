@@ -27,6 +27,7 @@
 #include <array>
 #include <cmath>
 
+namespace staticpendulum {
 /*!
  * @brief Cash and Karp embedded Runge Kutta order 5(4) adaptive step
  *integrator.
@@ -203,4 +204,5 @@ inline int cashKarp54(SystemType &&dxdt, std::array<double, StateSize> &x,
 
   return 1;
 }
+} // namespace staticpendulum
 #endif // CASHKARP54_H

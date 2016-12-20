@@ -23,6 +23,7 @@
  * ===========================================================================*/
 #include "pendulummapmodel.h"
 
+namespace staticpendulum {
 PendulumMapModel::PendulumMapModel(QObject *parent)
     : QObject(parent), m_xStart{-10.0}, m_yStart{-10.0}, m_xEnd{10.0},
       m_yEnd{10.0}, m_resolution{0.05}, m_attractorPosThreshold{0.5},
@@ -133,3 +134,4 @@ void PendulumMapModel::setOutOfBoundsColor(QColor outOfBoundsColor) {
   m_outOfBoundsColor = outOfBoundsColor;
   emit outOfBoundsColorChanged(outOfBoundsColor);
 }
+} // namespace staticpendulum

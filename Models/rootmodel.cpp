@@ -23,6 +23,7 @@
  * ===========================================================================*/
 #include "rootmodel.h"
 
+namespace staticpendulum {
 RootModel::RootModel(QObject *parent) : QObject(parent) {}
 
 PendulumSystemModel *RootModel::pendulumSystemModel() {
@@ -32,3 +33,4 @@ PendulumSystemModel *RootModel::pendulumSystemModel() {
 IntegratorModel *RootModel::integratorModel() { return &m_integratorModel; }
 
 PendulumMapModel *RootModel::pendulumMapModel() { return &m_pendulumMapModel; }
+} // namespace staticpendulum

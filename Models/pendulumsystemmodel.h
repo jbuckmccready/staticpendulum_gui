@@ -28,6 +28,7 @@
 #include <QObject>
 #include <memory>
 
+namespace staticpendulum {
 /// Bindable QObject class to represent an entire static pendulum system.
 class PendulumSystemModel : public QObject {
   Q_OBJECT
@@ -67,5 +68,5 @@ private:
   AttractorListModel m_attractorList;
   PendulumSystem m_pendulumSystem;
 };
-
+} // namespace staticpendulum
 #endif // PENDULUMSYSTEMMODEL_H

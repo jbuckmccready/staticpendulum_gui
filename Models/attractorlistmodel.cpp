@@ -23,6 +23,7 @@
  * ===========================================================================*/
 #include "attractorlistmodel.h"
 
+namespace staticpendulum {
 // **********************************************************************
 // Attractor impelementation
 // **********************************************************************
@@ -132,3 +133,4 @@ QHash<int, QByteArray> AttractorListModel::roleNames() const {
 bool AttractorListModel::rowExists(int rowIndex) const {
   return rowIndex >= 0 && rowIndex < rowCount();
 }
+} // namespace staticpendulum

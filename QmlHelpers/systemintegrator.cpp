@@ -28,12 +28,13 @@
 #include <QImage>
 #include <QtConcurrent/QtConcurrent>
 
+namespace staticpendulum {
 SystemIntegrator::SystemIntegrator(QObject *parent) : QObject(parent) {
   QObject::connect(&m_futureWatcher, &QFutureWatcher<void>::finished, this,
-                   &createImageFile);
+                   &SystemIntegrator::createImageFile);
   QObject::connect(&m_futureWatcher,
                    &QFutureWatcher<void>::progressValueChanged, this,
-                   &setProgressValue);
+                   &SystemIntegrator::setProgressValue);
   QObject::connect(&m_futureWatcher,
                    &QFutureWatcher<void>::progressRangeChanged, this,
                    [this](int minimum, int maximum) {
@@ -148,3 +149,4 @@ void SystemIntegrator::setProgressMaximum(int progressMaximum) {
   m_progressMaximum = progressMaximum;
   emit progressMaximumChanged(progressMaximum);
 }
+} // namespace staticpendulum

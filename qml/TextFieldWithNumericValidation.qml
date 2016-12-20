@@ -28,6 +28,7 @@ TextField {
   id: control
   validator: DoubleValidator { }
   placeholderText: "0.0"
+  selectByMouse: true
   background: Rectangle {
     implicitWidth: 200
     implicitHeight: 40

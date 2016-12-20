@@ -1,5 +1,5 @@
 TEMPLATE = app
-QT += core concurrent qml quick gui quickcontrols2
+QT += core concurrent qml quick widgets quickcontrols2
 CONFIG += c++14 warn_on
 QMAKE_CXXFLAGS += -pedantic
 QMAKE_CXXFLAGS_RELEASE += -ffast-math -O3
@@ -15,6 +15,7 @@ HEADERS += \
     Models/attractorlistmodel.h \
     Models/pendulummapmodel.h \
     QmlHelpers/systemintegrator.h \
+    DataStorage/jsonreader.h
 
 SOURCES += main.cpp \
     CoreEngine/pendulumsystem.cpp \
@@ -25,5 +26,6 @@ SOURCES += main.cpp \
     Models/attractorlistmodel.cpp \
     Models/pendulummapmodel.cpp \
     QmlHelpers/systemintegrator.cpp \
+    DataStorage/jsonreader.cpp
 
 RESOURCES += qml.qrc

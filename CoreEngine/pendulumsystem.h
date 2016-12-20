@@ -27,6 +27,7 @@
 #include <cmath>
 #include <vector>
 
+namespace staticpendulum {
 //! Pendulum function object that returns the derivative of the current state.
 
 /*! The pendulum system is described by the following system of differential
@@ -134,4 +135,5 @@ inline void PendulumSystem::operator()(
   dxdt[2] = (x[0] * gravityValue - drag * x[2] + xAttractionForce) / mass;
   dxdt[3] = (x[1] * gravityValue - drag * x[3] + yAttractionForce) / mass;
 }
+} // namespace staticpendulum
 #endif // PENDULUM_SYSTEM_H

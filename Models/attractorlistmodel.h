@@ -29,9 +29,10 @@
 #include <memory>
 #include <vector>
 
+namespace staticpendulum {
 struct Attractor {
 public:
-  explicit Attractor(double x, double y, double forceCoeff, QColor color);
+  Attractor(double x, double y, double forceCoeff, QColor color);
 
   double xPosition;
   double yPosition;
@@ -79,5 +80,5 @@ private:
   std::vector<Attractor> m_attractors;
   bool rowExists(int index) const;
 };
-
+} // namespace staticpendulum
 #endif // ATTRACTORLISTMODEL_H

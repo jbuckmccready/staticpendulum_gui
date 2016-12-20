@@ -23,6 +23,7 @@
  * ===========================================================================*/
 #include "pendulumsystem.h"
 
+namespace staticpendulum {
 //! Default constructor sets default pendulum properties, and k = 1.0 for three
 //! attractors positioned at: \f$(-0.5, \sqrt{3}/2)\f$, \f$(-0.5,
 //! -\sqrt{3}/2)\f$, and \f$(1, 0)\f$.
@@ -54,3 +55,4 @@ void PendulumSystem::setAllAttractorStrengths(double forceCoeff) {
 
 //! Clear all attractors.
 void PendulumSystem::clearAttractors() { attractorList.clear(); }
+} // namespace staticpendulum

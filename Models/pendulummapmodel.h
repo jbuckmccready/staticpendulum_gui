@@ -26,6 +26,7 @@
 #include <QColor>
 #include <QObject>
 
+namespace staticpendulum {
 /// Model for the XY map properties that describe the points to integrate
 /// across and determine convergence.
 class PendulumMapModel : public QObject {
@@ -96,5 +97,5 @@ private:
   QColor m_midConvergeColor;
   QColor m_outOfBoundsColor;
 };
-
+} // namespace staticpendulum
 #endif // PENDULUMMAPMODEL_H

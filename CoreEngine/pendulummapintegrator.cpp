@@ -23,9 +23,9 @@
  * ===========================================================================*/
 #include "pendulummapintegrator.h"
 #include <cmath>
-namespace sp = staticpendulum;
 
-sp::Map::Map(double xStart, double yStart, double xEnd, double yEnd,
+namespace staticpendulum {
+Map::Map(double xStart, double yStart, double xEnd, double yEnd,
              double resolution)
     : m_xStart{xStart}, m_yStart{yStart}, m_xEnd{xEnd}, m_yEnd{yEnd},
       m_resolution{resolution} {
@@ -62,3 +62,4 @@ sp::Map::Map(double xStart, double yStart, double xEnd, double yEnd,
     ++ydim_factor;
   }
 }
+} // namespace staticpendulum

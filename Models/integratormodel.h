@@ -25,6 +25,9 @@
 #define INTEGRATORMODEL_H
 #include "Models/pendulumsystemmodel.h"
 #include <QObject>
+#include <QJsonObject>
+
+namespace staticpendulum {
 
 /// QML type to manage integrating pendulum system.
 class IntegratorModel : public QObject {
@@ -54,6 +57,9 @@ public:
   void setAbsoluteTolerance(double absoluteTolerance);
   void setThreadCount(int threadCount);
 
+  void read(const QJsonObject &json);
+  void write(QJsonObject &json) const;
+
 signals:
   void startingStepSizeChanged(double startingStepSize);
   void maximumStepSizeChanged(double maximumStepSize);
@@ -68,4 +74,5 @@ private:
   double m_absoluteTolerance;
   int m_threadCount;
 };
+} // namespace staticpendulum
 #endif // INTEGRATORMODEL_H

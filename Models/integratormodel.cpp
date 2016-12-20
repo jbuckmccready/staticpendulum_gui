@@ -22,7 +22,13 @@
  * THE SOFTWARE.
  * ===========================================================================*/
 #include "integratormodel.h"
+#include "DataStorage/jsonreader.h"
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
+#include <QString>
 
+namespace staticpendulum {
 IntegratorModel::IntegratorModel(QObject *parent)
     : QObject(parent), m_startingStepSize{0.001}, m_maximumStepSize{0.1},
       m_relativeTolerance{1e-6}, m_absoluteTolerance{1e-6}, m_threadCount{8} {}
@@ -73,6 +79,23 @@ void IntegratorModel::setThreadCount(int threadCount) {
   emit threadCountChanged(threadCount);
 }
 
+void IntegratorModel::read(const QJsonObject &json) {
+  JsonReader reader("integrator", json);
+  setStartingStepSize(reader.readProperty("startingStepSize").toDouble());
+  setMaximumStepSize(reader.readProperty("maximumStepSize").toDouble());
+  setRelativeTolerance(reader.readProperty("relativeTolerance").toDouble());
+  setAbsoluteTolerance(reader.readProperty("absoluteTolerance").toDouble());
+  setThreadCount(reader.readProperty("threadCount").toDouble());
+}
+
+void IntegratorModel::write(QJsonObject &json) const {
+  json["startingStepSize"] = m_startingStepSize;
+  json["maximumStepSize"] = m_maximumStepSize;
+  json["relativeTolerance"] = m_relativeTolerance;
+  json["absoluteTolerance"] = m_absoluteTolerance;
+  json["threadCount"] = m_threadCount;
+}
+
 void IntegratorModel::setStartingStepSize(double startingStepSize) {
   if (m_startingStepSize == startingStepSize)
     return;
@@ -80,3 +103,4 @@ void IntegratorModel::setStartingStepSize(double startingStepSize) {
   m_startingStepSize = startingStepSize;
   emit startingStepSizeChanged(startingStepSize);
 }
+} // namespace staticpendulum

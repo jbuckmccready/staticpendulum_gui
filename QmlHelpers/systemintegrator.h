@@ -32,6 +32,7 @@
 #include <map>
 #include <memory>
 
+namespace staticpendulum {
 /// QML type to manage integrating pendulum system.
 class SystemIntegrator : public QObject {
   Q_OBJECT
@@ -71,5 +72,5 @@ private:
   staticpendulum::Map m_pointMap;
   std::map<int, QColor> m_colorMap;
 };
-
+} // namespace staticpendulum
 #endif // SYSTEMINTEGRATOR_H

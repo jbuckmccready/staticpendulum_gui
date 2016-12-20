@@ -23,7 +23,7 @@
  * ===========================================================================*/
 #include "Models/rootmodel.h"
 #include "QmlHelpers/systemintegrator.h"
-#include <QGuiApplication>
+#include <QApplication>
 #include <QHash>
 #include <QObject>
 #include <QQmlApplicationEngine>
@@ -31,7 +31,9 @@
 #include <QtQml>
 
 int main(int argc, char *argv[]) {
-  QGuiApplication app(argc, argv);
+  QApplication app(argc, argv);
+
+  using namespace staticpendulum;
 
   qmlRegisterType<SystemIntegrator>("QmlHelpers", 1, 0, "SystemIntegrator");
 

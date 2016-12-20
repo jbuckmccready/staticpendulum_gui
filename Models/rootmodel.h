@@ -28,6 +28,7 @@
 #include "pendulumsystemmodel.h"
 #include <QObject>
 
+namespace staticpendulum {
 /// Class to hold all the models and handle loading/saving models.
 class RootModel : public QObject {
   Q_OBJECT
@@ -52,5 +53,5 @@ private:
   IntegratorModel m_integratorModel;
   PendulumMapModel m_pendulumMapModel;
 };
-
+} // namespace staticpendulum
 #endif // ROOTMODEL_H
