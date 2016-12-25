@@ -36,9 +36,9 @@ PendulumSystemModel::PendulumSystemModel(QObject *parent) : QObject{parent} {
   m_attractorList.addAttractor(-0.5, yMag, 1, QColor(255, 140, 0));
   m_attractorList.addAttractor(-0.5, -yMag, 1, QColor(30, 144, 255));
   m_attractorList.addAttractor(1.0, 0.0, 1, QColor(178, 34, 34));
-  for (int i = 0; i < 1000; ++i) {
-    m_attractorList.addAttractor(1, 2, 3, QColor("orange"));
-  }
+//  for (int i = 0; i < 1000; ++i) {
+//    m_attractorList.addAttractor(1, 2, 3, QColor("orange"));
+//  }
 }
 
 AttractorListModel *PendulumSystemModel::attractorList() {

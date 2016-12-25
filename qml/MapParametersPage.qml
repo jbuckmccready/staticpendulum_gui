@@ -31,8 +31,8 @@ GridLayout {
 
   property bool isValid: xStartField.acceptableInput && yStartField.acceptableInput &&
                          xEndField.acceptableInput && yEndField.acceptableInput &&
-                         resolutionField.acceptableInput && attractorPosThreshholdField.acceptableInput &&
-                         midPosThreshholdField.acceptableInput && convergeTimeThresholdField.acceptableInput
+                         resolutionField.acceptableInput && attractorPosThresholdField.acceptableInput &&
+                         midPosThresholdField.acceptableInput && convergeTimeThresholdField.acceptableInput
 
   LabelWithHoverToolTip {
     Layout.row: 0
@@ -117,7 +117,7 @@ GridLayout {
   }
 
   TextFieldWithNumericValidation {
-    id: attractorPosThreshholdField
+    id: attractorPosThresholdField
     Layout.row: 5
     Layout.column: 1
     bindedModelValue: pendulumMapModel.attractorPosThreshold
@@ -127,12 +127,12 @@ GridLayout {
   LabelWithHoverToolTip {
     Layout.row: 6
     Layout.column: 0
-    text: "Mid Pos Threshhold:"
+    text: "Mid Pos Threshold:"
     toolTipText: "How close along both the X and Y axis the pendulum head must be to be counted as at (0,0)."
   }
 
   TextFieldWithNumericValidation {
-    id: midPosThreshholdField
+    id: midPosThresholdField
     Layout.row: 6
     Layout.column: 1
     bindedModelValue: pendulumMapModel.midPosThreshold

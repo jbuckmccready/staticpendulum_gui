@@ -133,7 +133,7 @@ ApplicationWindow {
 
   footer: Rectangle {
     height: 5
-    color: "blue"
+    color: "lightgrey"
   }
 
   RowLayout {
@@ -142,9 +142,28 @@ ApplicationWindow {
     ListView {
       id: navigationListView
       Layout.fillHeight: true
-      width: 100
       model: stackLayout.children
       delegate: navigationDelegate
+      property int titlePointSize: 14
+      property int titleLeftPadding: 2
+
+      Component.onCompleted: {
+        // create temporary FontMetrics object to compute width required
+        var fontMetrics = Qt.createQmlObject('import QtQuick 2.7; FontMetrics {}',
+                                             navigationListView);
+
+        fontMetrics.font.pointSize = navigationListView.titlePointSize;
+        var maxWidth = 0;
+        for (var i = 0; i < stackLayout.children.length; ++i) {
+          var titleWidth = fontMetrics.boundingRect(stackLayout.children[i].title).width;
+          maxWidth = Math.max(maxWidth, titleWidth + navigationListView.titleLeftPadding + 5);
+        }
+
+        // set implicit width of the list view to not clip the largest width title
+        navigationListView.implicitWidth = maxWidth;
+        // destroy the temporary
+        fontMetrics.destroy();
+      }
     }
 
     Component {
@@ -158,14 +177,19 @@ ApplicationWindow {
         border.color: model.isValid ? "transparent" : "red"
         Text {
           id: itemText
-          font.pointSize: 14
+          font.pointSize: navigationListView.titlePointSize
           text: model.title
-          leftPadding: 2
+          leftPadding: navigationListView.titleLeftPadding
         }
         MouseArea {
           anchors.fill: parent
-          onClicked: delegateWrapper.ListView.view.currentIndex = model.index
+          onClicked: navigationListView.currentIndex = model.index
         }
+//        Component.onCompleted: {
+//          if (ListView.view.implicitWidth < itemText.implicitWidth) {
+//            ListView.view.implicitWidth = itemText.implicitWidth;
+//          }
+//        }
       }
     }
 
@@ -188,7 +212,7 @@ ApplicationWindow {
 
       MapParametersPage {
         id: mapParametersPage
-        property string title: "Map Range"
+        property string title: "Map Parameters"
       }
 
     }

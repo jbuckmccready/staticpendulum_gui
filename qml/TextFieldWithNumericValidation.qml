@@ -29,6 +29,7 @@ TextField {
   validator: DoubleValidator { }
   placeholderText: "0.0"
   selectByMouse: true
+  maximumLength: 12
   background: Rectangle {
     implicitWidth: 200
     implicitHeight: 40
@@ -64,7 +65,7 @@ TextField {
   }
 
   Component.onCompleted: {
-    // if for any reason the text was not initialized (may be the case if the bindedModelValue  starts as
+    // if for any reason the text was not initialized (may be the case if the bindedModelValue starts as
     // 0.0 which will not trigger a property changed signal) then initialize the text from the model value
     if (!control.text) {
       control.isReadingFromModel = true;
