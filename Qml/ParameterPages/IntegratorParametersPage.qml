@@ -24,6 +24,8 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
+import CommonControls 1.0
+import ModelsRepo 1.0
 
 GridLayout {
   columns: 2
@@ -45,8 +47,8 @@ GridLayout {
     id: startingStepSizeField
     Layout.row: 0
     Layout.column: 1
-    bindedModelValue: integratorModel.startingStepSize
-    onTextAsDoubleChanged: integratorModel.startingStepSize = textAsDouble
+    bindedModelValue: ModelsRepo.integratorModel.startingStepSize
+    onTextAsDoubleChanged: ModelsRepo.integratorModel.startingStepSize = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -60,8 +62,8 @@ GridLayout {
     id: maximumStepSizeField
     Layout.row: 1
     Layout.column: 1
-    bindedModelValue: integratorModel.maximumStepSize
-    onTextAsDoubleChanged: integratorModel.maximumStepSize = textAsDouble
+    bindedModelValue: ModelsRepo.integratorModel.maximumStepSize
+    onTextAsDoubleChanged: ModelsRepo.integratorModel.maximumStepSize = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -75,8 +77,8 @@ GridLayout {
     id: relativeTolField
     Layout.row: 2
     Layout.column: 1
-    bindedModelValue: integratorModel.relativeTolerance
-    onTextAsDoubleChanged: integratorModel.relativeTolerance = textAsDouble
+    bindedModelValue: ModelsRepo.integratorModel.relativeTolerance
+    onTextAsDoubleChanged: ModelsRepo.integratorModel.relativeTolerance = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -90,8 +92,8 @@ GridLayout {
     id: absoluteTolField
     Layout.row: 3
     Layout.column: 1
-    bindedModelValue: integratorModel.absoluteTolerance
-    onTextAsDoubleChanged: integratorModel.absoluteTolerance = textAsDouble
+    bindedModelValue: ModelsRepo.integratorModel.absoluteTolerance
+    onTextAsDoubleChanged: ModelsRepo.integratorModel.absoluteTolerance = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -105,8 +107,8 @@ GridLayout {
     id: threadCountField
     Layout.row: 4
     Layout.column: 1
-    bindedModelValue: integratorModel.threadCount
-    onTextAsDoubleChanged: integratorModel.threadCount = textAsDouble
+    bindedModelValue: ModelsRepo.integratorModel.threadCount
+    onTextAsDoubleChanged: ModelsRepo.integratorModel.threadCount = textAsDouble
   }
 }
 

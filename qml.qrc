@@ -1,14 +1,16 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/PendulumAttractorsPage.qml</file>
-        <file>qml/Main.qml</file>
-        <file>qml/PendulumSystemPage.qml</file>
-        <file>qml/PendulumParametersPage.qml</file>
-        <file>qml/MapParametersPage.qml</file>
-        <file>qml/IntegratorParametersPage.qml</file>
-        <file>qml/PendulumAttractorsHeader.qml</file>
-        <file>qml/LabelWithHoverToolTip.qml</file>
-        <file>qml/TextFieldWithNumericValidation.qml</file>
-        <file>qml/ColorDialog.qml</file>
+        <file>Qml/CommonControls/ColorDialog.qml</file>
+        <file>Qml/CommonControls/LabelWithHoverToolTip.qml</file>
+        <file>Qml/CommonControls/TextFieldWithNumericValidation.qml</file>
+        <file>Qml/Main/Main.qml</file>
+        <file>Qml/ParameterPages/IntegratorParametersPage.qml</file>
+        <file>Qml/ParameterPages/MapParametersPage.qml</file>
+        <file>Qml/ParameterPages/PendulumAttractorsHeader.qml</file>
+        <file>Qml/ParameterPages/PendulumAttractorsPage.qml</file>
+        <file>Qml/ParameterPages/PendulumParametersPage.qml</file>
+        <file>Qml/ParameterPages/PendulumSystemPage.qml</file>
+        <file>Qml/ParameterPages/qmldir</file>
+        <file>Qml/CommonControls/qmldir</file>
     </qresource>
 </RCC>

@@ -1,0 +1,5 @@
+module ParameterPages
+IntegratorParametersPage 1.0 IntegratorParametersPage.qml
+MapParametersPage 1.0 MapParametersPage.qml
+PendulumAttractorsPage 1.0 PendulumAttractorsPage.qml
+PendulumSystemPage 1.0 PendulumSystemPage.qml

@@ -24,6 +24,9 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
+import CommonControls 1.0
+import ModelsRepo 1.0
+
 GridLayout {
   columns: 2
   rows: 5
@@ -44,7 +47,7 @@ GridLayout {
     id: distanceField
     Layout.row: 0
     Layout.column: 1
-    bindedModelValue: pendulumSystemModel.distance
+    bindedModelValue: ModelsRepo.pendulumSystemModel.distance
     onTextAsDoubleChanged: pendulumSytemModel.distance = textAsDouble
   }
 
@@ -59,7 +62,7 @@ GridLayout {
     id: massField
     Layout.row: 1
     Layout.column: 1
-    bindedModelValue: pendulumSystemModel.mass
+    bindedModelValue: ModelsRepo.pendulumSystemModel.mass
     onTextAsDoubleChanged: pendulumSytemModel.mass = textAsDouble
   }
 
@@ -74,7 +77,7 @@ GridLayout {
     id: gravityField
     Layout.row: 2
     Layout.column: 1
-    bindedModelValue: pendulumSystemModel.gravity
+    bindedModelValue: ModelsRepo.pendulumSystemModel.gravity
     onTextAsDoubleChanged: pendulumSytemModel.gravity = textAsDouble
   }
 
@@ -89,7 +92,7 @@ GridLayout {
     id: dragField
     Layout.row: 3
     Layout.column: 1
-    bindedModelValue: pendulumSystemModel.drag
+    bindedModelValue: ModelsRepo.pendulumSystemModel.drag
     onTextAsDoubleChanged: pendulumSytemModel.drag = textAsDouble
   }
 
@@ -104,7 +107,7 @@ GridLayout {
     id: lengthField
     Layout.row: 4
     Layout.column: 1
-    bindedModelValue: pendulumSystemModel.length
+    bindedModelValue: ModelsRepo.pendulumSystemModel.length
     onTextAsDoubleChanged: pendulumSytemModel.length = textAsDouble
   }
 }

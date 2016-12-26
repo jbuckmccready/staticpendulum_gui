@@ -23,6 +23,8 @@
  * ===========================================================================*/
 import QtQuick 2.7
 import QtQuick.Layouts 1.3
+import CommonControls 1.0
+import ModelsRepo 1.0
 
 GridLayout {
   columns: 2
@@ -45,8 +47,8 @@ GridLayout {
     id: xStartField
     Layout.row: 0
     Layout.column: 1
-    bindedModelValue: pendulumMapModel.xStart
-    onTextAsDoubleChanged: pendulumMapModel.xStart = textAsDouble
+    bindedModelValue: ModelsRepo.pendulumMapModel.xStart
+    onTextAsDoubleChanged: ModelsRepo.pendulumMapModel.xStart = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -60,8 +62,8 @@ GridLayout {
     id: yStartField
     Layout.row: 1
     Layout.column: 1
-    bindedModelValue: pendulumMapModel.yStart
-    onTextAsDoubleChanged: pendulumMapModel.yStart = textAsDouble
+    bindedModelValue: ModelsRepo.pendulumMapModel.yStart
+    onTextAsDoubleChanged: ModelsRepo.pendulumMapModel.yStart = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -75,8 +77,8 @@ GridLayout {
     id: xEndField
     Layout.row: 2
     Layout.column: 1
-    bindedModelValue: pendulumMapModel.xEnd
-    onTextAsDoubleChanged: pendulumMapModel.xEnd = textAsDouble
+    bindedModelValue: ModelsRepo.pendulumMapModel.xEnd
+    onTextAsDoubleChanged: ModelsRepo.pendulumMapModel.xEnd = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -90,8 +92,8 @@ GridLayout {
     id: yEndField
     Layout.row: 3
     Layout.column: 1
-    bindedModelValue: pendulumMapModel.yEnd
-    onTextAsDoubleChanged: pendulumMapModel.yEnd = textAsDouble
+    bindedModelValue: ModelsRepo.pendulumMapModel.yEnd
+    onTextAsDoubleChanged: ModelsRepo.pendulumMapModel.yEnd = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -105,8 +107,8 @@ GridLayout {
     id: resolutionField
     Layout.row: 4
     Layout.column: 1
-    bindedModelValue: pendulumMapModel.resolution
-    onTextAsDoubleChanged: pendulumMapModel.resolution = textAsDouble
+    bindedModelValue: ModelsRepo.pendulumMapModel.resolution
+    onTextAsDoubleChanged: ModelsRepo.pendulumMapModel.resolution = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -120,8 +122,8 @@ GridLayout {
     id: attractorPosThresholdField
     Layout.row: 5
     Layout.column: 1
-    bindedModelValue: pendulumMapModel.attractorPosThreshold
-    onTextAsDoubleChanged: pendulumMapModel.attractorPosThreshold = textAsDouble
+    bindedModelValue: ModelsRepo.pendulumMapModel.attractorPosThreshold
+    onTextAsDoubleChanged: ModelsRepo.pendulumMapModel.attractorPosThreshold = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -135,8 +137,8 @@ GridLayout {
     id: midPosThresholdField
     Layout.row: 6
     Layout.column: 1
-    bindedModelValue: pendulumMapModel.midPosThreshold
-    onTextAsDoubleChanged: pendulumMapModel.midPosThreshold = textAsDouble
+    bindedModelValue: ModelsRepo.pendulumMapModel.midPosThreshold
+    onTextAsDoubleChanged: ModelsRepo.pendulumMapModel.midPosThreshold = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -150,7 +152,7 @@ GridLayout {
     id: convergeTimeThresholdField
     Layout.row: 7
     Layout.column: 1
-    bindedModelValue: pendulumMapModel.convergeTimeThreshold
-    onTextAsDoubleChanged: pendulumMapModel.convergeTimeThreshold = textAsDouble
+    bindedModelValue: ModelsRepo.pendulumMapModel.convergeTimeThreshold
+    onTextAsDoubleChanged: ModelsRepo.pendulumMapModel.convergeTimeThreshold = textAsDouble
   }
 }

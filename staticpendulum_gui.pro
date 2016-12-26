@@ -5,27 +5,30 @@ QMAKE_CXXFLAGS += -pedantic
 QMAKE_CXXFLAGS_RELEASE += -ffast-math -O3
 QMAKE_CXXFLAGS_RELEASE -= -O2
 
+QML_IMPORT_PATH = $$PWD/Qml
+message($$QML_IMPORT_PATH)
+
 HEADERS += \
     CoreEngine/cashkarp54.h \
     CoreEngine/pendulumsystem.h \
     CoreEngine/pendulummapintegrator.h \
     Models/pendulumsystemmodel.h \
     Models/integratormodel.h \
-    Models/rootmodel.h \
     Models/attractorlistmodel.h \
     Models/pendulummapmodel.h \
     QmlHelpers/systemintegrator.h \
-    DataStorage/jsonreader.h
+    DataStorage/jsonreader.h \
+    Models/modelsrepo.h
 
 SOURCES += main.cpp \
     CoreEngine/pendulumsystem.cpp \
     CoreEngine/pendulummapintegrator.cpp \
     Models/pendulumsystemmodel.cpp \
     Models/integratormodel.cpp \
-    Models/rootmodel.cpp \
     Models/attractorlistmodel.cpp \
     Models/pendulummapmodel.cpp \
     QmlHelpers/systemintegrator.cpp \
-    DataStorage/jsonreader.cpp
+    DataStorage/jsonreader.cpp \
+    Models/modelsrepo.cpp
 
 RESOURCES += qml.qrc

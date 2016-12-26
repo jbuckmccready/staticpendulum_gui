@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  * ===========================================================================*/
-#include "Models/rootmodel.h"
+#include "Models/modelsrepo.h"
 #include "QmlHelpers/systemintegrator.h"
 #include <QApplication>
 #include <QHash>
@@ -37,18 +37,14 @@ int main(int argc, char *argv[]) {
 
   qmlRegisterType<SystemIntegrator>("QmlHelpers", 1, 0, "SystemIntegrator");
 
+  qmlRegisterSingletonType<ModelsRepo>("ModelsRepo", 1, 0, "ModelsRepo", &ModelsRepo::qmlInstance);
+
   QQmlApplicationEngine engine;
+  engine.addImportPath("qrc:/Qml/");
   engine.rootContext()->setContextProperty("applicationDirPath",
                                            qApp->applicationDirPath());
 
-  auto *rootModel = new RootModel();
-  engine.rootContext()->setContextProperty("pendulumSystemModel",
-                                           rootModel->pendulumSystemModel());
-  engine.rootContext()->setContextProperty("integratorModel",
-                                           rootModel->integratorModel());
-  engine.rootContext()->setContextProperty("pendulumMapModel",
-                                           rootModel->pendulumMapModel());
-  engine.load(QUrl(QLatin1String("qrc:/qml/Main.qml")));
+  engine.load(QUrl(QLatin1String("qrc:/Qml/Main/Main.qml")));
 
   return app.exec();
 }

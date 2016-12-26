@@ -24,6 +24,8 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
+import CommonControls 1.0
+import ModelsRepo 1.0
 
 ColumnLayout {
   id: rootColumn
@@ -58,7 +60,7 @@ ColumnLayout {
     clip: true // keeps the listview contents within its bounding box
     boundsBehavior: Flickable.StopAtBounds // disables overshoot and rebound
 
-    model: pendulumSystemModel.attractorList
+    model: ModelsRepo.pendulumSystemModel.attractorList
 
     headerPositioning: ListView.OverlayHeader
     header: PendulumAttractorsHeader {
@@ -216,7 +218,7 @@ ColumnLayout {
     spacing: 5
     Button {
       text: "Add Attractor"
-      onClicked: pendulumSystemModel.attractorList.addAttractor(0, 0, 0, 1, "red")
+      onClicked: ModelsRepo.pendulumSystemModel.attractorList.addAttractor(0, 0, 0, 1, "red")
     }
     Button {
       text: "Delete Attractor"
@@ -237,7 +239,7 @@ ColumnLayout {
           return;
         }
 
-        pendulumSystemModel.attractorList.removeAttractor(attractorsListView.currentIndex);
+        ModelsRepo.pendulumSystemModel.attractorList.removeAttractor(attractorsListView.currentIndex);
       }
     }
 
@@ -247,7 +249,7 @@ ColumnLayout {
     // asynchronous == true to compile and load the ColorDialog in another thread
     asynchronous: true
 
-    source: "ColorDialog.qml"
+    sourceComponent: ColorDialog {}
   }
 }
 

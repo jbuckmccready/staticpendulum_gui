@@ -26,6 +26,8 @@ import QtQuick.Controls 2.0
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
 import QmlHelpers 1.0
+import ParameterPages 1.0
+import ModelsRepo 1.0
 
 ApplicationWindow {
   id: applicationWindow
@@ -109,7 +111,7 @@ ApplicationWindow {
       }
       Text {
         Layout.alignment: Qt.AlignHCenter
-        text: "Finished integrating %1 of %2 points using %3 threads.".arg(integrator.progressValue).arg(integrator.progressMaximum).arg(integratorModel.threadCount)
+        text: "Finished integrating %1 of %2 points using %3 threads.".arg(integrator.progressValue).arg(integrator.progressMaximum).arg(ModelsRepo.integratorModel.threadCount)
       }
       Button {
         Layout.alignment: Qt.AlignHCenter
