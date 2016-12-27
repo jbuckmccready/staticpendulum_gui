@@ -6,7 +6,7 @@ QMAKE_CXXFLAGS_RELEASE += -ffast-math -O3
 QMAKE_CXXFLAGS_RELEASE -= -O2
 
 QML_IMPORT_PATH = $$PWD/Qml
-message($$QML_IMPORT_PATH)
+#message($$QML_IMPORT_PATH)
 
 HEADERS += \
     CoreEngine/cashkarp54.h \

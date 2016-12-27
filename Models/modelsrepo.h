@@ -4,14 +4,15 @@
 #include "integratormodel.h"
 #include "pendulummapmodel.h"
 #include "pendulumsystemmodel.h"
+#include <QFileSystemModel>
 #include <QObject>
 
 class QQmlEngine;
 class QJSEngine;
+class QString;
 
 namespace staticpendulum {
-class ModelsRepo : public QObject
-{
+class ModelsRepo : public QObject {
   Q_OBJECT
   Q_DISABLE_COPY(ModelsRepo)
 
@@ -26,6 +27,10 @@ public:
   IntegratorModel *integratorModel();
 
   static QObject *qmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine);
+
+public slots:
+  void loadJsonFile(const QString &filePath);
+  void saveJsonFile(const QString &filePath);
 
 private:
   ModelsRepo();

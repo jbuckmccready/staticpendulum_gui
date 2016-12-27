@@ -37,7 +37,8 @@ int main(int argc, char *argv[]) {
 
   qmlRegisterType<SystemIntegrator>("QmlHelpers", 1, 0, "SystemIntegrator");
 
-  qmlRegisterSingletonType<ModelsRepo>("ModelsRepo", 1, 0, "ModelsRepo", &ModelsRepo::qmlInstance);
+  qmlRegisterSingletonType<ModelsRepo>("ModelsRepo", 1, 0, "ModelsRepo",
+                                       &ModelsRepo::qmlInstance);
 
   QQmlApplicationEngine engine;
   engine.addImportPath("qrc:/Qml/");

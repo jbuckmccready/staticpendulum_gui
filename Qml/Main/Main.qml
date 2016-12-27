@@ -50,9 +50,16 @@ ApplicationWindow {
     RowLayout {
       ToolButton {
         text: qsTr("Load")
+        onClicked: {
+          ModelsRepo.loadJsonFile("test.json");
+        }
+
       }
       ToolButton {
         text: qsTr("Save")
+        onClicked: {
+          ModelsRepo.saveJsonFile("test.json");
+        }
       }
       ToolButton {
         text: qsTr("Integrate")
@@ -152,7 +159,7 @@ ApplicationWindow {
       Component.onCompleted: {
         // create temporary FontMetrics object to compute width required
         var fontMetrics = Qt.createQmlObject('import QtQuick 2.7; FontMetrics {}',
-                                             navigationListView);
+                     navigationListView);
 
         fontMetrics.font.pointSize = navigationListView.titlePointSize;
         var maxWidth = 0;
@@ -187,11 +194,11 @@ ApplicationWindow {
           anchors.fill: parent
           onClicked: navigationListView.currentIndex = model.index
         }
-//        Component.onCompleted: {
-//          if (ListView.view.implicitWidth < itemText.implicitWidth) {
-//            ListView.view.implicitWidth = itemText.implicitWidth;
-//          }
-//        }
+        //        Component.onCompleted: {
+        //          if (ListView.view.implicitWidth < itemText.implicitWidth) {
+        //            ListView.view.implicitWidth = itemText.implicitWidth;
+        //          }
+        //        }
       }
     }
 

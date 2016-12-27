@@ -51,8 +51,24 @@ QJsonValue JsonReader::readProperty(const QString &propName,
 
   if (result.type() != expectedType) {
     logWrongType(propName, expectedType, result.type());
+    return QJsonValue();
   }
 
   return result;
+}
+
+QColor JsonReader::readPropertyAsQColor(const QString &propName) {
+
+  QJsonValue result = readProperty(propName, QJsonValue::Type::String);
+  if (result.type() == QJsonValue::Type::Null) {
+    return QColor("black");
+  }
+
+  QString colorString(readProperty(propName, QJsonValue::Type::String).toString());
+  if (!QColor::isValidColor(colorString)) {
+    return QColor("black");
+  }
+
+  return QColor(colorString);
 }
 } // namespace staticpendulum

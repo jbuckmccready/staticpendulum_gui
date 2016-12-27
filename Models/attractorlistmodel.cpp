@@ -22,19 +22,48 @@
  * THE SOFTWARE.
  * ===========================================================================*/
 #include "attractorlistmodel.h"
+#include "DataStorage/jsonreader.h"
+#include <QDebug>
+#include <QJsonArray>
+#include <QJsonValue>
 
 namespace staticpendulum {
 // **********************************************************************
 // Attractor impelementation
 // **********************************************************************
 Attractor::Attractor(double x, double y, double forceCoeff, QColor color)
-    : xPosition{x}, yPosition{y}, forceCoefficient{forceCoeff}, color{color} {}
+  : xPosition{x}, yPosition{y}, forceCoefficient{forceCoeff}, color{color} {}
+
+const QString &Attractor::xPositionJsonKey() {
+  static const QString key("xPosition");
+  return key;
+}
+
+const QString &Attractor::yPositionJsonKey() {
+  static const QString key("yPosition");
+  return key;
+}
+
+const QString &Attractor::forceCoefficientJsonKey() {
+  static const QString key("forceCoefficient");
+  return key;
+}
+
+const QString &Attractor::colorJsonKey() {
+  static const QString key("color");
+  return key;
+}
 
 // **********************************************************************
 // AttractorListModel impelementation
 // **********************************************************************
 AttractorListModel::AttractorListModel(QObject *parent)
     : QAbstractListModel(parent) {}
+
+bool AttractorListModel::rowExists(int rowIndex) const {
+  return rowIndex >= 0 && rowIndex < rowCount();
+}
+
 
 void AttractorListModel::addAttractor(double xPosition, double yPosition,
                                       double forceCoeff, QColor color) {
@@ -122,6 +151,60 @@ bool AttractorListModel::setData(const QModelIndex &index,
   return true;
 }
 
+// helper functions
+namespace {
+Attractor readAtttractor(const QJsonValue &json, int index) {
+  if (json.type() != QJsonValue::Type::Object) {
+    qCritical()
+        << QString("Attempted to read attractor at index: %1 and found it not "
+                   "to be an expected JsonObject type.")
+               .arg(index);
+    return Attractor(0, 0, 0, QColor("black"));
+  }
+
+  const QJsonObject &attractorObj = json.toObject();
+
+  JsonReader reader(QString("attractorAtIndex%1").arg(index), attractorObj);
+  double xPos = reader.readProperty(Attractor::xPositionJsonKey()).toDouble();
+  double yPos = reader.readProperty(Attractor::yPositionJsonKey()).toDouble();
+  double forceCoef =
+      reader.readProperty(Attractor::forceCoefficientJsonKey()).toDouble();
+  QColor color = reader.readPropertyAsQColor(Attractor::colorJsonKey());
+  return Attractor(xPos, yPos, forceCoef, color);
+}
+
+void writeAttractor(QJsonObject &json, const Attractor &attractor)
+{
+  json[Attractor::xPositionJsonKey()] = attractor.xPosition;
+  json[Attractor::yPositionJsonKey()] = attractor.yPosition;
+  json[Attractor::forceCoefficientJsonKey()] = attractor.forceCoefficient;
+  json[Attractor::colorJsonKey()] = attractor.color.name();
+}
+
+} // namespace
+
+void AttractorListModel::read(const QJsonArray &jsonArray) {
+  // clear existing attractors
+  removeRows(0, rowCount());
+
+  // insert all the attractors in the json array
+  int index = 0;
+  beginInsertRows(QModelIndex(), 0, jsonArray.size() - 1);
+  for (const QJsonValue &jsonVal : jsonArray) {
+    m_attractors.push_back(readAtttractor(jsonVal, index));
+    ++index;
+  }
+  endInsertRows();
+}
+
+void AttractorListModel::write(QJsonArray &jsonArray) const {
+  for (const Attractor &attractor : m_attractors) {
+    QJsonObject attractorObj;
+    writeAttractor(attractorObj, attractor);
+    jsonArray.push_back(attractorObj);
+  }
+}
+
 QHash<int, QByteArray> AttractorListModel::roleNames() const {
   QHash<int, QByteArray> roles{{xPositionRole, "xPosition"},
                                {yPositionRole, "yPosition"},
@@ -130,7 +213,4 @@ QHash<int, QByteArray> AttractorListModel::roleNames() const {
   return roles;
 }
 
-bool AttractorListModel::rowExists(int rowIndex) const {
-  return rowIndex >= 0 && rowIndex < rowCount();
-}
 } // namespace staticpendulum

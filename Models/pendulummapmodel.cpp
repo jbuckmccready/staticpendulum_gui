@@ -22,6 +22,9 @@
  * THE SOFTWARE.
  * ===========================================================================*/
 #include "pendulummapmodel.h"
+#include "DataStorage/jsonreader.h"
+#include <QJsonObject>
+#include <QJsonValue>
 
 namespace staticpendulum {
 PendulumMapModel::PendulumMapModel(QObject *parent)
@@ -30,6 +33,62 @@ PendulumMapModel::PendulumMapModel(QObject *parent)
       m_midPosThreshold{0.1}, m_convergeTimeThreshold{5.0},
       m_midConvergeColor{QColor(0, 0, 0)},
       m_outOfBoundsColor{QColor(255, 255, 255)} {}
+
+const QString &PendulumMapModel::modelJsonKey()
+{
+  static const QString key("pendulumMap");
+  return key;
+}
+
+const QString &PendulumMapModel::xStartJsonKey() {
+  static const QString key("xStart");
+  return key;
+}
+
+const QString &PendulumMapModel::yStartJsonKey() {
+  static const QString key("yStart");
+  return key;
+}
+
+const QString &PendulumMapModel::xEndJsonKey() {
+  static const QString key("xEnd");
+  return key;
+}
+
+const QString &PendulumMapModel::yEndJsonKey() {
+  static const QString key("yEnd");
+  return key;
+}
+
+const QString &PendulumMapModel::resolutionJsonKey() {
+  static const QString key("resolution");
+  return key;
+}
+
+const QString &PendulumMapModel::attractorPosThresholdJsonKey() {
+  static const QString key("attractorPosThreshold");
+  return key;
+}
+
+const QString &PendulumMapModel::midPosThresholdJsonKey() {
+  static const QString key("midPosThreshold");
+  return key;
+}
+
+const QString &PendulumMapModel::convergeTimeThresholdJsonKey() {
+  static const QString key("convergeTimeThreshold");
+  return key;
+}
+
+const QString &PendulumMapModel::midConvergeColorJsonKey() {
+  static const QString key("midConvergeColor");
+  return key;
+}
+
+const QString &PendulumMapModel::outOfBoundsColorJsonKey() {
+  static const QString key("outOfBoundsColor");
+  return key;
+}
 
 double PendulumMapModel::xStart() const { return m_xStart; }
 
@@ -133,5 +192,31 @@ void PendulumMapModel::setOutOfBoundsColor(QColor outOfBoundsColor) {
 
   m_outOfBoundsColor = outOfBoundsColor;
   emit outOfBoundsColorChanged(outOfBoundsColor);
+}
+
+void PendulumMapModel::read(const QJsonObject &json) {
+  JsonReader reader("pendulumMap", json);
+  setXStart(reader.readProperty(xStartJsonKey()).toDouble());
+  setYStart(reader.readProperty(yStartJsonKey()).toDouble());
+  setXEnd(reader.readProperty(xEndJsonKey()).toDouble());
+  setYEnd(reader.readProperty(yEndJsonKey()).toDouble());
+  setResolution(reader.readProperty(resolutionJsonKey()).toDouble());
+  setMidPosThreshold(reader.readProperty(midPosThresholdJsonKey()).toDouble());
+  setConvergeTimeThreshold(
+      reader.readProperty(convergeTimeThresholdJsonKey()).toDouble());
+  setMidConvergeColor(reader.readPropertyAsQColor(midConvergeColorJsonKey()));
+  setOutOfBoundsColor(reader.readPropertyAsQColor(outOfBoundsColorJsonKey()));
+}
+
+void PendulumMapModel::write(QJsonObject &json) const {
+  json[xStartJsonKey()] = xStart();
+  json[yStartJsonKey()] = yStart();
+  json[xEndJsonKey()] = xEnd();
+  json[yEndJsonKey()] = yEnd();
+  json[resolutionJsonKey()] = resolution();
+  json[midPosThresholdJsonKey()] = midPosThreshold();
+  json[convergeTimeThresholdJsonKey()] = convergeTimeThreshold();
+  json[midConvergeColorJsonKey()] = midConvergeColor().name();
+  json[outOfBoundsColorJsonKey()] = outOfBoundsColor().name();
 }
 } // namespace staticpendulum

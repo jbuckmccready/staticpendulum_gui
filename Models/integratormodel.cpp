@@ -25,13 +25,42 @@
 #include "DataStorage/jsonreader.h"
 #include <QJsonObject>
 #include <QJsonValue>
-#include <QJsonArray>
 #include <QString>
 
 namespace staticpendulum {
 IntegratorModel::IntegratorModel(QObject *parent)
     : QObject(parent), m_startingStepSize{0.001}, m_maximumStepSize{0.1},
       m_relativeTolerance{1e-6}, m_absoluteTolerance{1e-6}, m_threadCount{8} {}
+
+const QString &IntegratorModel::modelJsonKey() {
+  static const QString key("integrator");
+  return key;
+}
+
+const QString &IntegratorModel::startingStepSizeJsonKey() {
+  static const QString key("startingStepSize");
+  return key;
+}
+
+const QString &IntegratorModel::maximumStepSizeJsonKey() {
+  static const QString key("maximumStepSize");
+  return key;
+}
+
+const QString &IntegratorModel::relativeToleranceJsonKey() {
+  static const QString key("relativeTolerance");
+  return key;
+}
+
+const QString &IntegratorModel::absoluteToleranceJsonKey() {
+  static const QString key("absoluteTolerance");
+  return key;
+}
+
+const QString &IntegratorModel::threadCountJsonKey() {
+  static const QString key("threadCount");
+  return key;
+}
 
 double IntegratorModel::startingStepSize() const { return m_startingStepSize; }
 
@@ -80,20 +109,28 @@ void IntegratorModel::setThreadCount(int threadCount) {
 }
 
 void IntegratorModel::read(const QJsonObject &json) {
-  JsonReader reader("integrator", json);
-  setStartingStepSize(reader.readProperty("startingStepSize").toDouble());
-  setMaximumStepSize(reader.readProperty("maximumStepSize").toDouble());
-  setRelativeTolerance(reader.readProperty("relativeTolerance").toDouble());
-  setAbsoluteTolerance(reader.readProperty("absoluteTolerance").toDouble());
-  setThreadCount(reader.readProperty("threadCount").toDouble());
+  JsonReader reader(modelJsonKey(), json);
+
+  setStartingStepSize(
+      reader.readProperty(startingStepSizeJsonKey()).toDouble());
+
+  setMaximumStepSize(reader.readProperty(maximumStepSizeJsonKey()).toDouble());
+
+  setRelativeTolerance(
+      reader.readProperty(relativeToleranceJsonKey()).toDouble());
+
+  setAbsoluteTolerance(
+      reader.readProperty(absoluteToleranceJsonKey()).toDouble());
+
+  setThreadCount(reader.readProperty(threadCountJsonKey()).toDouble());
 }
 
 void IntegratorModel::write(QJsonObject &json) const {
-  json["startingStepSize"] = m_startingStepSize;
-  json["maximumStepSize"] = m_maximumStepSize;
-  json["relativeTolerance"] = m_relativeTolerance;
-  json["absoluteTolerance"] = m_absoluteTolerance;
-  json["threadCount"] = m_threadCount;
+  json[startingStepSizeJsonKey()] = m_startingStepSize;
+  json[maximumStepSizeJsonKey()] = m_maximumStepSize;
+  json[relativeToleranceJsonKey()] = m_relativeTolerance;
+  json[absoluteToleranceJsonKey()] = m_absoluteTolerance;
+  json[threadCountJsonKey()] = m_threadCount;
 }
 
 void IntegratorModel::setStartingStepSize(double startingStepSize) {

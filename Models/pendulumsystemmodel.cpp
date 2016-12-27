@@ -22,6 +22,10 @@
  * THE SOFTWARE.
  * ===========================================================================*/
 #include "pendulumsystemmodel.h"
+#include "DataStorage/jsonreader.h"
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonValue>
 #include <cmath>
 
 namespace staticpendulum {
@@ -33,17 +37,50 @@ PendulumSystemModel::PendulumSystemModel(QObject *parent) : QObject{parent} {
   m_pendulumSystem.length = 10.0;
   // Create default ring of attractors
   constexpr double yMag = std::sqrt(1 - 0.5 * 0.5);
-  m_attractorList.addAttractor(-0.5, yMag, 1, QColor(255, 140, 0));
-  m_attractorList.addAttractor(-0.5, -yMag, 1, QColor(30, 144, 255));
-  m_attractorList.addAttractor(1.0, 0.0, 1, QColor(178, 34, 34));
+  m_attractors.addAttractor(-0.5, yMag, 1, QColor(255, 140, 0));
+  m_attractors.addAttractor(-0.5, -yMag, 1, QColor(30, 144, 255));
+  m_attractors.addAttractor(1.0, 0.0, 1, QColor(178, 34, 34));
 //  for (int i = 0; i < 1000; ++i) {
-//    m_attractorList.addAttractor(1, 2, 3, QColor("orange"));
+//    m_attractors.addAttractor(1, 2, 3, QColor("orange"));
 //  }
 }
 
-AttractorListModel *PendulumSystemModel::attractorList() {
-  return &m_attractorList;
+const QString &PendulumSystemModel::modelJsonKey() {
+  static const QString key("pendulumSystem");
+  return key;
 }
+
+const QString &PendulumSystemModel::distanceJsonKey() {
+  static const QString key("distance");
+  return key;
+}
+
+const QString &PendulumSystemModel::massJsonKey() {
+  static const QString key("mass");
+  return key;
+}
+
+const QString &PendulumSystemModel::gravityJsonKey() {
+  static const QString key("gravity");
+  return key;
+}
+
+const QString &PendulumSystemModel::dragJsonKey() {
+  static const QString key("drag");
+  return key;
+}
+
+const QString &PendulumSystemModel::lengthJsonKey() {
+  static const QString key("length");
+  return key;
+}
+
+const QString &PendulumSystemModel::attractorsJsonKey() {
+  static const QString key("attractors");
+  return key;
+}
+
+AttractorListModel *PendulumSystemModel::attractors() { return &m_attractors; }
 
 double PendulumSystemModel::distance() const {
   return m_pendulumSystem.distance;
@@ -59,10 +96,10 @@ double PendulumSystemModel::length() const { return m_pendulumSystem.length; }
 
 PendulumSystem PendulumSystemModel::wrappedSystem() const {
   PendulumSystem result = m_pendulumSystem;
-  result.attractorList.reserve(m_attractorList.rowCount());
+  result.attractorList.reserve(m_attractors.rowCount());
 
-  auto end = m_attractorList.end();
-  for (auto iter = m_attractorList.begin(); iter != end; ++iter) {
+  auto end = m_attractors.end();
+  for (auto iter = m_attractors.begin(); iter != end; ++iter) {
     result.addAttractor(iter->xPosition, iter->yPosition,
                         iter->forceCoefficient);
   }
@@ -108,5 +145,33 @@ void PendulumSystemModel::setLength(double length) {
 
   m_pendulumSystem.length = length;
   emit lengthChanged(length);
+}
+
+void PendulumSystemModel::read(const QJsonObject &json) {
+  JsonReader reader("pendulumSystem", json);
+  setDistance(reader.readProperty(distanceJsonKey()).toDouble());
+  setMass(reader.readProperty(massJsonKey()).toDouble());
+  setGravity(reader.readProperty(gravityJsonKey()).toDouble());
+  setDrag(reader.readProperty(dragJsonKey()).toDouble());
+  setLength(reader.readProperty(dragJsonKey()).toDouble());
+
+  QJsonValue attractorsJson =
+      reader.readProperty(attractorsJsonKey(), QJsonValue::Type::Array);
+  if (attractorsJson.type() == QJsonValue::Type::Null) {
+    return;
+  }
+
+  m_attractors.read(attractorsJson.toArray());
+}
+
+void PendulumSystemModel::write(QJsonObject &json) const {
+  json[distanceJsonKey()] = distance();
+  json[massJsonKey()] = mass();
+  json[gravityJsonKey()] = gravity();
+  json[dragJsonKey()] = drag();
+  json[lengthJsonKey()] = length();
+  QJsonArray attractorsJsonArr = QJsonArray();
+  m_attractors.write(attractorsJsonArr);
+  json[attractorsJsonKey()] = attractorsJsonArr;
 }
 } // namespace staticpendulum

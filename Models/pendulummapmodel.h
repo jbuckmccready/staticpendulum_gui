@@ -26,6 +26,8 @@
 #include <QColor>
 #include <QObject>
 
+class QJsonObject;
+
 namespace staticpendulum {
 /// Model for the XY map properties that describe the points to integrate
 /// across and determine convergence.
@@ -51,6 +53,19 @@ class PendulumMapModel : public QObject {
 public:
   explicit PendulumMapModel(QObject *parent = 0);
 
+  static const QString &modelJsonKey();
+
+  static const QString &xStartJsonKey();
+  static const QString &yStartJsonKey();
+  static const QString &xEndJsonKey();
+  static const QString &yEndJsonKey();
+  static const QString &resolutionJsonKey();
+  static const QString &attractorPosThresholdJsonKey();
+  static const QString &midPosThresholdJsonKey();
+  static const QString &convergeTimeThresholdJsonKey();
+  static const QString &midConvergeColorJsonKey();
+  static const QString &outOfBoundsColorJsonKey();
+
   double xStart() const;
   double yStart() const;
   double xEnd() const;
@@ -72,6 +87,9 @@ public:
   void setConvergeTimeThreshold(double convergeTimeThreshold);
   void setMidConvergeColor(QColor midConvergeColor);
   void setOutOfBoundsColor(QColor outOfBoundsColor);
+
+  void read(const QJsonObject &json);
+  void write(QJsonObject &json) const;
 
 signals:
   void xStartChanged(double xStart);

@@ -29,6 +29,9 @@
 #include <memory>
 #include <vector>
 
+class QJsonArray;
+class QJsonValue;
+
 namespace staticpendulum {
 struct Attractor {
 public:
@@ -38,6 +41,11 @@ public:
   double yPosition;
   double forceCoefficient;
   QColor color;
+
+  static const QString &xPositionJsonKey();
+  static const QString &yPositionJsonKey();
+  static const QString &forceCoefficientJsonKey();
+  static const QString &colorJsonKey();
 };
 
 /// Bindable QObject class that represents a list of attractors.
@@ -66,6 +74,9 @@ public:
 
   auto begin() const { return m_attractors.cbegin(); }
   auto end() const { return m_attractors.cend(); }
+
+  void read(const QJsonArray &jsonArray);
+  void write(QJsonArray &jsonArray) const;
 
 public slots:
   void addAttractor(double xPosition, double yPosition, double forceCoeff,

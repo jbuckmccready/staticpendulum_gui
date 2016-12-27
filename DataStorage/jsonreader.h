@@ -1,5 +1,6 @@
 #ifndef JSONREADER_H
 #define JSONREADER_H
+#include <QColor>
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QString>
@@ -17,6 +18,11 @@ public:
   QJsonValue
   readProperty(const QString &propName,
                QJsonValue::Type expectedType = QJsonValue::Type::Double) const;
+
+  /// Attempts to read the json property as a QColor object. If the property is
+  /// not a string or the property as a string is not a valid color name returns
+  /// black otherwise returns the color name parsed from the property as a string.
+  QColor readPropertyAsQColor(const QString &propName);
 
 private:
   /// Logs that the property was missing when attempting to read.

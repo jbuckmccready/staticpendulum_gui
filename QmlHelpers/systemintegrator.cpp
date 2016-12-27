@@ -90,7 +90,7 @@ void SystemIntegrator::integrateMap(PendulumSystemModel *pendulumSystemModel,
   m_colorMap[-2] = pendulumMapModel->outOfBoundsColor();
   m_colorMap[-1] = pendulumMapModel->midConvergeColor();
   int index = 0;
-  for (const auto &attractor : *pendulumSystemModel->attractorList()) {
+  for (const auto &attractor : *pendulumSystemModel->attractors()) {
     m_colorMap[index] = attractor.color;
     ++index;
   }

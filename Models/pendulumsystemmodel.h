@@ -28,11 +28,13 @@
 #include <QObject>
 #include <memory>
 
+class QJsonObject;
+
 namespace staticpendulum {
 /// Bindable QObject class to represent an entire static pendulum system.
 class PendulumSystemModel : public QObject {
   Q_OBJECT
-  Q_PROPERTY(AttractorListModel *attractorList READ attractorList CONSTANT)
+  Q_PROPERTY(AttractorListModel *attractors READ attractors CONSTANT)
   Q_PROPERTY(
       double distance READ distance WRITE setDistance NOTIFY distanceChanged)
   Q_PROPERTY(double mass READ mass WRITE setMass NOTIFY massChanged)
@@ -42,7 +44,16 @@ class PendulumSystemModel : public QObject {
 public:
   explicit PendulumSystemModel(QObject *parent = 0);
 
-  AttractorListModel *attractorList();
+  const static QString &modelJsonKey();
+
+  const static QString &distanceJsonKey();
+  const static QString &massJsonKey();
+  const static QString &gravityJsonKey();
+  const static QString &dragJsonKey();
+  const static QString &lengthJsonKey();
+  const static QString &attractorsJsonKey();
+
+  AttractorListModel *attractors();
   double distance() const;
   double mass() const;
   double gravity() const;
@@ -55,6 +66,9 @@ public:
   void setDrag(double drag);
   void setLength(double length);
 
+  void read(const QJsonObject &json);
+  void write(QJsonObject &json) const;
+
   PendulumSystem wrappedSystem() const;
 
 signals:
@@ -65,7 +79,7 @@ signals:
   void lengthChanged(double length);
 
 private:
-  AttractorListModel m_attractorList;
+  AttractorListModel m_attractors;
   PendulumSystem m_pendulumSystem;
 };
 } // namespace staticpendulum

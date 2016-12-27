@@ -60,7 +60,7 @@ ColumnLayout {
     clip: true // keeps the listview contents within its bounding box
     boundsBehavior: Flickable.StopAtBounds // disables overshoot and rebound
 
-    model: ModelsRepo.pendulumSystemModel.attractorList
+    model: ModelsRepo.pendulumSystemModel.attractors
 
     headerPositioning: ListView.OverlayHeader
     header: PendulumAttractorsHeader {
@@ -218,7 +218,7 @@ ColumnLayout {
     spacing: 5
     Button {
       text: "Add Attractor"
-      onClicked: ModelsRepo.pendulumSystemModel.attractorList.addAttractor(0, 0, 0, 1, "red")
+      onClicked: ModelsRepo.pendulumSystemModel.attractors.addAttractor(0, 0, 0, 1, "red")
     }
     Button {
       text: "Delete Attractor"
@@ -239,14 +239,14 @@ ColumnLayout {
           return;
         }
 
-        ModelsRepo.pendulumSystemModel.attractorList.removeAttractor(attractorsListView.currentIndex);
+        ModelsRepo.pendulumSystemModel.attractors.removeAttractor(attractorsListView.currentIndex);
       }
     }
 
   }
   Loader {
     id: colorDialogLoader
-    // asynchronous == true to compile and load the ColorDialog in another thread
+    // asynchronous == true to load the ColorDialog in another thread
     asynchronous: true
 
     sourceComponent: ColorDialog {}
