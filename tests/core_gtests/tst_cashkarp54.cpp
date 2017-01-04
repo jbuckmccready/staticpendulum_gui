@@ -173,7 +173,6 @@ struct ref_PendulumSystem {
   std::vector<Attractor>
       attractorList; /*!< List of attractors for the system. */
 
-  PendulumSystem();
   void operator()(const StateType &x, StateType &dxdt,
                   const double /* t */) const;
 };
