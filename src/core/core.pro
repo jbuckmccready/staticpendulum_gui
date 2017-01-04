@@ -6,7 +6,7 @@ QMAKE_CXXFLAGS_RELEASE += -ffast-math -O3
 QMAKE_CXXFLAGS_RELEASE -= -O2
 
 # Qt deprecation warnings
-DEFINES += QT_DEPRECATED_WARNINGS;
+DEFINES += QT_DEPRECATED_WARNINGS
 
 # Import path added to help Qt Creator resolve QML modules
 # actual import happens in the app main.cpp and imports the qml.qrc
