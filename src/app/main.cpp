@@ -41,6 +41,9 @@ int main(int argc, char *argv[]) {
                                        &ModelsRepo::qmlInstance);
 
   QQmlApplicationEngine engine;
+  // Must init qt resource file from core static library (qml.qrc)
+  Q_INIT_RESOURCE(qml);
+  // Add import path to resolve Qml modules, note: using qrc path
   engine.addImportPath("qrc:/Qml/");
   engine.rootContext()->setContextProperty("applicationDirPath",
                                            qApp->applicationDirPath());
