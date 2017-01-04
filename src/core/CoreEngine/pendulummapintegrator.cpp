@@ -30,8 +30,8 @@ Map::Map(double xStart, double yStart, double xEnd, double yEnd,
     : m_xStart{xStart}, m_yStart{yStart}, m_xEnd{xEnd}, m_yEnd{yEnd},
       m_resolution{resolution} {
   // column and row count, +1 to make it an inclusive range
-  m_cols = std::abs(std::lround((m_xEnd - m_xStart) / m_resolution)) + 1;
-  m_rows = std::abs(std::lround((m_yEnd - m_yStart) / m_resolution)) + 1;
+  m_cols = std::abs(static_cast<double>(std::lround((m_xEnd - m_xStart)) / m_resolution)) + 1;
+  m_rows = std::abs(static_cast<double>(std::lround((m_yEnd - m_yStart)) / m_resolution)) + 1;
 
   m_mapData.resize(m_rows * m_cols);
 

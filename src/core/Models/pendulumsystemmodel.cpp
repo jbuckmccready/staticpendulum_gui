@@ -36,7 +36,7 @@ PendulumSystemModel::PendulumSystemModel(QObject *parent) : QObject{parent} {
   m_pendulumSystem.drag = 0.2;
   m_pendulumSystem.length = 10.0;
   // Create default ring of attractors
-  constexpr double yMag = std::sqrt(1 - 0.5 * 0.5);
+  const double yMag = std::sqrt(1 - 0.5 * 0.5);
   m_attractors.addAttractor(-0.5, yMag, 1, QColor(255, 140, 0));
   m_attractors.addAttractor(-0.5, -yMag, 1, QColor(30, 144, 255));
   m_attractors.addAttractor(1.0, 0.0, 1, QColor(178, 34, 34));

@@ -70,7 +70,7 @@ ApplicationWindow {
           }
 
           progressPopup.open();
-          integrator.integrateMap(pendulumSystemModel, pendulumMapModel, integratorModel);
+          integrator.integrateMap(ModelsRepo.pendulumSystemModel, ModelsRepo.pendulumMapModel, ModelsRepo.integratorModel);
         }
       }
     }

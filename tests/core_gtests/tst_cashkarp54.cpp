@@ -239,7 +239,7 @@ TEST_P(CashKarp54Test, pendulumSystemTests) {
   sys.gravity = 9.8;
   sys.drag = 0.2;
   sys.length = 10.0;
-  constexpr double yMag = std::sqrt(1 - 0.5 * 0.5);
+  const double yMag = std::sqrt(1 - 0.5 * 0.5);
   sys.attractorList.emplace_back(-0.5, yMag, 1);
   sys.attractorList.emplace_back(-0.5, -yMag, 1);
   sys.attractorList.emplace_back(1.0, 0.0, 1);
@@ -270,8 +270,8 @@ TEST_P(CashKarp54Test, pendulumSystemTests) {
     }
   };
 
-  compareWithStartState({5.0, 5.0, 0.0, 0.0});
-  compareWithStartState({2.5, -4.5, 0.1, -0.2});
+  compareWithStartState({{5.0, 5.0, 0.0, 0.0}});
+  compareWithStartState({{2.5, -4.5, 0.1, -0.2}});
 }
 
 // Test data
