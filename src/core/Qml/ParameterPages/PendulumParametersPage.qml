@@ -48,7 +48,7 @@ GridLayout {
     Layout.row: 0
     Layout.column: 1
     bindedModelValue: ModelsRepo.pendulumSystemModel.distance
-    onTextAsDoubleChanged: pendulumSytemModel.distance = textAsDouble
+    onTextAsDoubleChanged: ModelsRepo.pendulumSystemModel.distance = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -63,7 +63,7 @@ GridLayout {
     Layout.row: 1
     Layout.column: 1
     bindedModelValue: ModelsRepo.pendulumSystemModel.mass
-    onTextAsDoubleChanged: pendulumSytemModel.mass = textAsDouble
+    onTextAsDoubleChanged: ModelsRepo.pendulumSystemModel.mass = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -78,7 +78,7 @@ GridLayout {
     Layout.row: 2
     Layout.column: 1
     bindedModelValue: ModelsRepo.pendulumSystemModel.gravity
-    onTextAsDoubleChanged: pendulumSytemModel.gravity = textAsDouble
+    onTextAsDoubleChanged: ModelsRepo.pendulumSystemModel.gravity = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -93,7 +93,7 @@ GridLayout {
     Layout.row: 3
     Layout.column: 1
     bindedModelValue: ModelsRepo.pendulumSystemModel.drag
-    onTextAsDoubleChanged: pendulumSytemModel.drag = textAsDouble
+    onTextAsDoubleChanged: ModelsRepo.pendulumSystemModel.drag = textAsDouble
   }
 
   LabelWithHoverToolTip {
@@ -108,6 +108,6 @@ GridLayout {
     Layout.row: 4
     Layout.column: 1
     bindedModelValue: ModelsRepo.pendulumSystemModel.length
-    onTextAsDoubleChanged: pendulumSytemModel.length = textAsDouble
+    onTextAsDoubleChanged: ModelsRepo.pendulumSystemModel.length = textAsDouble
   }
 }
