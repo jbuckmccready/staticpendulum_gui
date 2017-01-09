@@ -33,9 +33,9 @@ struct Point {
   double yPosition;
   double xVelocity;
   double yVelocity;
+  double convergeTime = 0.0;
   int convergePosition = -2; // -2 reserved for points that are out of bounds,
                              // -1 for points that converge to the middle
-  double convergeTime = 0.0;
   int stepCount = 0;
 };
 

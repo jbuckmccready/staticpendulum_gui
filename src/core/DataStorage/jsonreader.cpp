@@ -34,9 +34,11 @@ QString JsonReader::jsonValueTypeToString(QJsonValue::Type jsonType) const {
     return QString("Object");
   case QJsonValue::Type::String:
     return QString("String");
-  default:
+  case QJsonValue::Type::Undefined:
     return QString("Undefined");
   }
+
+  Q_UNREACHABLE();
 }
 
 QJsonValue JsonReader::readProperty(const QString &propName,

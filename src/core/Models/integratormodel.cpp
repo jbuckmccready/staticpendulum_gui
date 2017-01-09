@@ -122,7 +122,7 @@ void IntegratorModel::read(const QJsonObject &json) {
   setAbsoluteTolerance(
       reader.readProperty(absoluteToleranceJsonKey()).toDouble());
 
-  setThreadCount(reader.readProperty(threadCountJsonKey()).toDouble());
+  setThreadCount(reader.readProperty(threadCountJsonKey()).toInt());
 }
 
 void IntegratorModel::write(QJsonObject &json) const {
