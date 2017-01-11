@@ -112,10 +112,6 @@ inline int cashKarp54(SystemType &&dxdt, std::array<double, StateSize> &x,
   constexpr double a64 = 44275.0 / 110592.0;
   constexpr double a65 = 253.0 / 4096.0;
 
-  // remove need to increment unsigned int (unsigned int requries possible
-  // checks for wrapping)
-  constexpr int intSize = static_cast<int>(StateSize);
-
   // temp state used to store state for next k value and later used
   // for error difference
   std::array<double, StateSize> tempState;
@@ -123,35 +119,35 @@ inline int cashKarp54(SystemType &&dxdt, std::array<double, StateSize> &x,
   std::array<double, StateSize> k1;
   dxdt(x, k1, t); // fill k1
 
-  for (int i = 0; i < intSize; ++i) {
+  for (std::size_t i = 0; i < StateSize; ++i) {
     tempState[i] = x[i] + h * a21 * k1[i];
   }
 
   std::array<double, StateSize> k2;
   dxdt(tempState, k2, t + c2 * h); // fill k2
 
-  for (int i = 0; i < intSize; ++i) {
+  for (std::size_t i = 0; i < StateSize; ++i) {
     tempState[i] = x[i] + h * (a31 * k1[i] + a32 * k2[i]);
   }
 
   std::array<double, StateSize> k3;
   dxdt(tempState, k3, t + c3 * h); // fill k3
 
-  for (int i = 0; i < intSize; ++i) {
+  for (std::size_t i = 0; i < StateSize; ++i) {
     tempState[i] = x[i] + h * (a41 * k1[i] + a42 * k2[i] + a43 * k3[i]);
   }
 
   std::array<double, StateSize> k4;
   dxdt(tempState, k4, t + c4 * h); // fill k4
 
-  for (int i = 0; i < intSize; ++i) {
+  for (std::size_t i = 0; i < StateSize; ++i) {
     tempState[i] =
         x[i] + h * (a51 * k1[i] + a52 * k2[i] + a53 * k3[i] + a54 * k4[i]);
   }
 
   std::array<double, StateSize> k5;
   dxdt(tempState, k5, t + c5 * h); // fill k5
-  for (int i = 0; i < intSize; ++i) {
+  for (std::size_t i = 0; i < StateSize; ++i) {
     tempState[i] = x[i] +
                    h * (a61 * k1[i] + a62 * k2[i] + a63 * k3[i] + a64 * k4[i] +
                         a65 * k5[i]);
@@ -161,23 +157,23 @@ inline int cashKarp54(SystemType &&dxdt, std::array<double, StateSize> &x,
   dxdt(tempState, k6, t + c6 * h); // fill k6
 
   std::array<double, StateSize> order5Solution;
-  for (int i = 0; i < intSize; ++i) {
+  for (std::size_t i = 0; i < StateSize; ++i) {
     order5Solution[i] = h * (b5th1 * k1[i] + b5th2 * k2[i] + b5th3 * k3[i] +
                              b5th4 * k4[i] + b5th5 * k5[i] + b5th6 * k6[i]);
   }
   // difference between order 4 and 5, used for error check, reusing tempState
   // variable
-  for (int i = 0; i < intSize; ++i) {
+  for (std::size_t i = 0; i < StateSize; ++i) {
     tempState[i] = h * (bDiff1 * k1[i] + bDiff2 * k2[i] + bDiff3 * k3[i] +
                         bDiff4 * k4[i] + bDiff5 * k5[i] + bDiff6 * k6[i]);
   }
   std::array<double, StateSize> potentialSolution;
-  for (int i = 0; i < intSize; ++i) {
+  for (std::size_t i = 0; i < StateSize; ++i) {
     potentialSolution[i] = x[i] + order5Solution[i];
   }
   // boost odeint syle error step sizing method
   std::array<double, StateSize> errorValueList;
-  for (int i = 0; i < intSize; ++i) {
+  for (std::size_t i = 0; i < StateSize; ++i) {
     errorValueList[i] =
         std::abs(tempState[i] / (absTol + relTol * (potentialSolution[i])));
   }
@@ -192,7 +188,7 @@ inline int cashKarp54(SystemType &&dxdt, std::array<double, StateSize> &x,
 
   // use the step
   t += h;
-  for (int i = 0; i < intSize; ++i) {
+  for (std::size_t i = 0; i < StateSize; ++i) {
     x[i] = potentialSolution[i];
   }
 

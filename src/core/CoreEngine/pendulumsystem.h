@@ -120,11 +120,11 @@ inline void PendulumSystem::operator()(
 
   // sum up all the attractor forces
   for (auto attractor : attractorList) {
-    double value3 = x[0] - attractor.xPosition;
-    double value4 = x[1] - attractor.yPosition;
-    double value5 = value3 * value3;
-    double value6 = value4 * value4;
-    double value7 = -attractor.forceCoeff / std::pow(value5 + value6 + value2, 1.5);
+    const double value3 = x[0] - attractor.xPosition;
+    const double value4 = x[1] - attractor.yPosition;
+    const double value5 = value3 * value3;
+    const double value6 = value4 * value4;
+    const double value7 = -attractor.forceCoeff / std::pow(value5 + value6 + value2, 1.5);
 
     xAttractionForce += value3 * value7;
     yAttractionForce += value4 * value7;
