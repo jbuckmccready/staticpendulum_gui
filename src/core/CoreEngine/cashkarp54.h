@@ -26,6 +26,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <iostream>
 
 namespace staticpendulum {
 /*!
@@ -118,6 +119,8 @@ inline int cashKarp54(SystemType &&dxdt, std::array<double, StateSize> &x,
 
   std::array<double, StateSize> k1;
   dxdt(x, k1, t); // fill k1
+  //  std::cout << "k1: " << k1[0] << ", " << k1[1] << ", " << k1[2] << ", " <<
+  //  k1[3] << '\n';
 
   for (std::size_t i = 0; i < StateSize; ++i) {
     tempState[i] = x[i] + h * a21 * k1[i];
@@ -125,6 +128,8 @@ inline int cashKarp54(SystemType &&dxdt, std::array<double, StateSize> &x,
 
   std::array<double, StateSize> k2;
   dxdt(tempState, k2, t + c2 * h); // fill k2
+  //  std::cout << "k2: " << k2[0] << ", " << k2[1] << ", " << k2[2] << ", " <<
+  //  k2[3] << '\n';
 
   for (std::size_t i = 0; i < StateSize; ++i) {
     tempState[i] = x[i] + h * (a31 * k1[i] + a32 * k2[i]);
@@ -132,6 +137,8 @@ inline int cashKarp54(SystemType &&dxdt, std::array<double, StateSize> &x,
 
   std::array<double, StateSize> k3;
   dxdt(tempState, k3, t + c3 * h); // fill k3
+  //  std::cout << "k3: " << k3[0] << ", " << k3[1] << ", " << k3[2] << ", " <<
+  //  k3[3] << '\n';
 
   for (std::size_t i = 0; i < StateSize; ++i) {
     tempState[i] = x[i] + h * (a41 * k1[i] + a42 * k2[i] + a43 * k3[i]);
@@ -139,6 +146,8 @@ inline int cashKarp54(SystemType &&dxdt, std::array<double, StateSize> &x,
 
   std::array<double, StateSize> k4;
   dxdt(tempState, k4, t + c4 * h); // fill k4
+  //  std::cout << "k4: " << k4[0] << ", " << k4[1] << ", " << k4[2] << ", " <<
+  //  k4[3] << '\n';
 
   for (std::size_t i = 0; i < StateSize; ++i) {
     tempState[i] =
@@ -147,6 +156,9 @@ inline int cashKarp54(SystemType &&dxdt, std::array<double, StateSize> &x,
 
   std::array<double, StateSize> k5;
   dxdt(tempState, k5, t + c5 * h); // fill k5
+  //  std::cout << "k5: " << k5[0] << ", " << k5[1] << ", " << k5[2] << ", " <<
+  //  k5[3] << '\n';
+
   for (std::size_t i = 0; i < StateSize; ++i) {
     tempState[i] = x[i] +
                    h * (a61 * k1[i] + a62 * k2[i] + a63 * k3[i] + a64 * k4[i] +
@@ -155,22 +167,36 @@ inline int cashKarp54(SystemType &&dxdt, std::array<double, StateSize> &x,
 
   std::array<double, StateSize> k6;
   dxdt(tempState, k6, t + c6 * h); // fill k6
+  //  std::cout << "k6: " << k6[0] << ", " << k6[1] << ", " << k6[2] << ", " <<
+  //  k6[3] << '\n';
 
   std::array<double, StateSize> order5Solution;
   for (std::size_t i = 0; i < StateSize; ++i) {
     order5Solution[i] = h * (b5th1 * k1[i] + b5th2 * k2[i] + b5th3 * k3[i] +
                              b5th4 * k4[i] + b5th5 * k5[i] + b5th6 * k6[i]);
   }
+  //  std::cout << "order5_sol: " << order5Solution[0] << ", " <<
+  //  order5Solution[1] << ", " << order5Solution[2] << ", " <<
+  //  order5Solution[3] << '\n';
+
   // difference between order 4 and 5, used for error check, reusing tempState
   // variable
   for (std::size_t i = 0; i < StateSize; ++i) {
     tempState[i] = h * (bDiff1 * k1[i] + bDiff2 * k2[i] + bDiff3 * k3[i] +
                         bDiff4 * k4[i] + bDiff5 * k5[i] + bDiff6 * k6[i]);
   }
+  //  std::cout << "diff54: " << tempState[0] << ", " << tempState[1] << ", " <<
+  //  tempState[2] << ", " <<
+  //  tempState[3] << '\n';
+
   std::array<double, StateSize> potentialSolution;
   for (std::size_t i = 0; i < StateSize; ++i) {
     potentialSolution[i] = x[i] + order5Solution[i];
   }
+  //  std::cout << "potential_sol: " << potentialSolution[0] << ", " <<
+  //  potentialSolution[1] << ", " << potentialSolution[2] << ", " <<
+  //  potentialSolution[3] << '\n';
+
   // boost odeint syle error step sizing method
   std::array<double, StateSize> errorValueList;
   for (std::size_t i = 0; i < StateSize; ++i) {
