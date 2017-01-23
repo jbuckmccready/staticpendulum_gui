@@ -9,10 +9,6 @@ QMAKE_CXXFLAGS_RELEASE -= -O2
 # Qt deprecation warnings
 DEFINES += QT_DEPRECATED_WARNINGS
 
-# Import path added to help Qt Creator resolve QML modules
-# actual import happens in the app main.cpp and imports the qml.qrc
-QML_IMPORT_PATH += $$PWD/Qml
-
 HEADERS += \
     CoreEngine/cashkarp54.h \
     CoreEngine/pendulumsystem.h \
@@ -35,6 +31,3 @@ SOURCES += \
     QmlHelpers/systemintegrator.cpp \
     DataStorage/jsonreader.cpp \
     Models/modelsrepo.cpp
-
-RESOURCES += \
-    qml.qrc

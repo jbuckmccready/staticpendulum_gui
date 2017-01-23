@@ -10,6 +10,11 @@ TARGET = staticpendulum_gui
 
 SOURCES += main.cpp
 
+# Import path added to help Qt Creator resolve QML modules
+# actual import happens in the app main.cpp and imports the qml.qrc
+QML_IMPORT_PATH += $$PWD/Qml
+
+
 # Including core static library
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../core/debug/ -lcore
@@ -24,6 +29,4 @@ else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PW
 else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../core/debug/core.lib
 else:unix: PRE_TARGETDEPS += $$OUT_PWD/../core/libcore.a
 
-DISTFILES +=
-
-RESOURCES +=
+RESOURCES += qml.qrc
