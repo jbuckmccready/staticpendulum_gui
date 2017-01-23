@@ -31,6 +31,7 @@
 #include <QtQml>
 
 int main(int argc, char *argv[]) {
+  QApplication::setAttribute(Qt::AA_UseOpenGLES);
   QApplication app(argc, argv);
 
   using namespace staticpendulum;

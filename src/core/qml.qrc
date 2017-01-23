@@ -2,8 +2,11 @@
     <qresource prefix="/">
         <file>Qml/CommonControls/ColorDialog.qml</file>
         <file>Qml/CommonControls/LabelWithHoverToolTip.qml</file>
+        <file>Qml/CommonControls/qmldir</file>
+        <file>Qml/CommonControls/ScrollBar.qml</file>
         <file>Qml/CommonControls/TextFieldWithNumericValidation.qml</file>
         <file>Qml/Main/Main.qml</file>
+        <file>Qml/Main/ParameterSetManager.qml</file>
         <file>Qml/ParameterPages/IntegratorParametersPage.qml</file>
         <file>Qml/ParameterPages/MapParametersPage.qml</file>
         <file>Qml/ParameterPages/PendulumAttractorsHeader.qml</file>
@@ -11,6 +14,5 @@
         <file>Qml/ParameterPages/PendulumParametersPage.qml</file>
         <file>Qml/ParameterPages/PendulumSystemPage.qml</file>
         <file>Qml/ParameterPages/qmldir</file>
-        <file>Qml/CommonControls/qmldir</file>
     </qresource>
 </RCC>

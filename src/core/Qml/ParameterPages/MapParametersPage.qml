@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  * ===========================================================================*/
-import QtQuick 2.7
-import QtQuick.Layouts 1.3
 import CommonControls 1.0
 import ModelsRepo 1.0
+import QtQuick 2.7
+import QtQuick.Layouts 1.3
 
 GridLayout {
   columns: 2

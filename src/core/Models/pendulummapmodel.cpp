@@ -28,11 +28,11 @@
 
 namespace staticpendulum {
 PendulumMapModel::PendulumMapModel(QObject *parent)
-    : QObject(parent), m_xStart{-10.0}, m_yStart{-10.0}, m_xEnd{10.0},
-      m_yEnd{10.0}, m_resolution{0.05}, m_attractorPosThreshold{0.5},
-      m_midPosThreshold{0.1}, m_convergeTimeThreshold{5.0},
-      m_midConvergeColor{QColor(0, 0, 0)},
-      m_outOfBoundsColor{QColor(255, 255, 255)} {}
+    : QObject(parent), m_xStart(-10.0), m_yStart(-10.0), m_xEnd(10.0),
+      m_yEnd(10.0), m_resolution(0.05), m_attractorPosThreshold(0.5),
+      m_midPosThreshold(0.1), m_convergeTimeThreshold(5.0),
+      m_midConvergeColor(QColor(0, 0, 0)),
+      m_outOfBoundsColor(QColor(255, 255, 255)) {}
 
 const QString &PendulumMapModel::modelJsonKey()
 {
@@ -195,7 +195,7 @@ void PendulumMapModel::setOutOfBoundsColor(QColor outOfBoundsColor) {
 }
 
 void PendulumMapModel::read(const QJsonObject &json) {
-  JsonReader reader("pendulumMap", json);
+  const JsonReader reader("pendulumMap", json);
   setXStart(reader.readProperty(xStartJsonKey()).toDouble());
   setYStart(reader.readProperty(yStartJsonKey()).toDouble());
   setXEnd(reader.readProperty(xEndJsonKey()).toDouble());

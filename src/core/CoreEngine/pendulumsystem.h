@@ -67,6 +67,8 @@ struct PendulumSystem {
   //! Container for an attractor, stores the position as an x-y coordinate, and
   //! an attractive force coefficient.
   struct Attractor {
+    Attractor(double xPos, double yPos, double forceCoeff)
+        : xPosition(xPos), yPosition(yPos), forceCoeff(forceCoeff) {}
     double xPosition; /*!< x coordinate position. */
     double yPosition; /*!< y coordinate position. */
     double
@@ -74,24 +76,18 @@ struct PendulumSystem {
                        \frac{-k}{x^2+y^2}\f$ */
   };
 
-  double
-      distance;   /*!< Distance between the pendulum head at rest and the base
-                     plate. */
-  double mass;    /*!< Mass of the head of the pendulum. */
-  double gravity; /*!< Acceleration due to gravity. */
-  double drag;    /*!< Linear drag coefficient. */
-  double length;  /*!< Length of the pendulum. */
+  double distance; /*!< Distance between the pendulum head at rest and the base
+                      plate. */
+  double mass;     /*!< Mass of the head of the pendulum. */
+  double gravity;  /*!< Acceleration due to gravity. */
+  double drag;     /*!< Linear drag coefficient. */
+  double length;   /*!< Length of the pendulum. */
   std::vector<Attractor>
       attractorList; /*!< List of attractors for the system. */
 
   PendulumSystem();
   void operator()(const StateType &x, StateType &dxdt,
                   const double /* t */) const;
-  void addAttractor(double xPosition, double yPosition, double forceCoeff);
-  void setAttractor(int index, double xPosition, double yPosition,
-                    double forceCoeff);
-  void setAllAttractorStrengths(double forceCoeff);
-  void clearAttractors();
 };
 
 //! Function call that returns the derivative of the current state.
@@ -124,7 +120,8 @@ inline void PendulumSystem::operator()(
     const double value4 = x[1] - attractor.yPosition;
     const double value5 = value3 * value3;
     const double value6 = value4 * value4;
-    const double value7 = -attractor.forceCoeff / std::pow(value5 + value6 + value2, 1.5);
+    const double value7 =
+        -attractor.forceCoeff / std::pow(value5 + value6 + value2, 1.5);
 
     xAttractionForce += value3 * value7;
     yAttractionForce += value4 * value7;

@@ -34,10 +34,10 @@ void IntegrationBenchmarks::benchmark1_data()
   QTest::addColumn<PendulumSystem>("system");
   PendulumSystem sys;
   const double yMag = std::sqrt(1 - 0.5 * 0.5);
-  sys.addAttractor(-0.5, yMag, 1);
-  sys.addAttractor(-0.5, -yMag, 1);
-  sys.addAttractor(1.0, 0.0, 1);
-  sys.addAttractor(1.0, 1.0, 1);
+  sys.attractorList.emplace_back(-0.5, yMag, 1);
+  sys.attractorList.emplace_back(-0.5, -yMag, 1);
+  sys.attractorList.emplace_back(1.0, 0.0, 1);
+  sys.attractorList.emplace_back(1.0, 1.0, 1);
   QTest::newRow("test1") << StateType {{ 1.0, 1.0, 0.0, 0.0 }} << sys;
   QTest::newRow("test2") << StateType {{ 5.0, 5.0, 0.0, 0.0 }} << sys;
   QTest::newRow("test3") << StateType {{ 2.5, -4.5, 0.1, -0.2 }} << sys;

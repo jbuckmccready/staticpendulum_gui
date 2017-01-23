@@ -4,7 +4,6 @@
 #include "integratormodel.h"
 #include "pendulummapmodel.h"
 #include "pendulumsystemmodel.h"
-#include <QFileSystemModel>
 #include <QObject>
 
 class QQmlEngine;
@@ -20,17 +19,19 @@ class ModelsRepo : public QObject {
                  CONSTANT)
   Q_PROPERTY(PendulumMapModel *pendulumMapModel READ pendulumMapModel CONSTANT)
   Q_PROPERTY(IntegratorModel *integratorModel READ integratorModel CONSTANT)
-
+  Q_PROPERTY(QString jsonFilesDirPath READ jsonFilesDirPath CONSTANT)
 public:
   PendulumSystemModel *pendulumSystemModel();
   PendulumMapModel *pendulumMapModel();
   IntegratorModel *integratorModel();
 
   static QObject *qmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine);
+  const QString &jsonFilesDirPath();
 
 public slots:
   void loadJsonFile(const QString &filePath);
-  void saveJsonFile(const QString &filePath);
+  bool saveJsonFile(const QString &filePath) const;
+  void deleteJsonFile(const QString &filePath) const;
 
 private:
   ModelsRepo();

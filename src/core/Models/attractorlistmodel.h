@@ -33,9 +33,9 @@ class QJsonArray;
 class QJsonValue;
 
 namespace staticpendulum {
-struct Attractor {
+struct AttractorModel {
 public:
-  Attractor(double x, double y, double forceCoeff, QColor color);
+  AttractorModel(double x, double y, double forceCoeff, QColor color);
 
   double xPosition;
   double yPosition;
@@ -88,7 +88,7 @@ protected:
   QHash<int, QByteArray> roleNames() const override;
 
 private:
-  std::vector<Attractor> m_attractors;
+  std::vector<AttractorModel> m_attractors;
   bool rowExists(int index) const;
 };
 } // namespace staticpendulum

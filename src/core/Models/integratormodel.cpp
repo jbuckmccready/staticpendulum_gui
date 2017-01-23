@@ -29,8 +29,8 @@
 
 namespace staticpendulum {
 IntegratorModel::IntegratorModel(QObject *parent)
-    : QObject(parent), m_startingStepSize{0.001}, m_maximumStepSize{0.1},
-      m_relativeTolerance{1e-6}, m_absoluteTolerance{1e-6}, m_threadCount{8} {}
+    : QObject(parent), m_startingStepSize(0.001), m_maximumStepSize(0.1),
+      m_relativeTolerance(1e-6), m_absoluteTolerance(1e-6), m_threadCount(8) {}
 
 const QString &IntegratorModel::modelJsonKey() {
   static const QString key("integrator");

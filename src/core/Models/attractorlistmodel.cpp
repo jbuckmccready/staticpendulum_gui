@@ -31,25 +31,26 @@ namespace staticpendulum {
 // **********************************************************************
 // Attractor impelementation
 // **********************************************************************
-Attractor::Attractor(double x, double y, double forceCoeff, QColor color)
-  : xPosition{x}, yPosition{y}, forceCoefficient{forceCoeff}, color{color} {}
+AttractorModel::AttractorModel(double x, double y, double forceCoeff,
+                               QColor color)
+    : xPosition(x), yPosition(y), forceCoefficient(forceCoeff), color(color) {}
 
-const QString &Attractor::xPositionJsonKey() {
+const QString &AttractorModel::xPositionJsonKey() {
   static const QString key("xPosition");
   return key;
 }
 
-const QString &Attractor::yPositionJsonKey() {
+const QString &AttractorModel::yPositionJsonKey() {
   static const QString key("yPosition");
   return key;
 }
 
-const QString &Attractor::forceCoefficientJsonKey() {
+const QString &AttractorModel::forceCoefficientJsonKey() {
   static const QString key("forceCoefficient");
   return key;
 }
 
-const QString &Attractor::colorJsonKey() {
+const QString &AttractorModel::colorJsonKey() {
   static const QString key("color");
   return key;
 }
@@ -64,7 +65,6 @@ bool AttractorListModel::rowExists(int rowIndex) const {
   return rowIndex >= 0 && rowIndex < rowCount();
 }
 
-
 void AttractorListModel::addAttractor(double xPosition, double yPosition,
                                       double forceCoeff, QColor color) {
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
@@ -75,7 +75,7 @@ void AttractorListModel::addAttractor(double xPosition, double yPosition,
 bool AttractorListModel::removeRows(int row, int count,
                                     const QModelIndex &parent) {
   Q_UNUSED(parent);
-  int endRow = row + count - 1;
+  const int endRow = row + count - 1;
   if (!rowExists(row) || !rowExists(endRow))
     return false;
   beginRemoveRows(QModelIndex(), row, endRow);
@@ -99,7 +99,7 @@ QVariant AttractorListModel::data(const QModelIndex &index, int role) const {
   if (!rowExists(index.row()))
     return QVariant();
 
-  const Attractor &attractor = m_attractors[index.row()];
+  const AttractorModel &attractor = m_attractors[index.row()];
   switch (role) {
   case xPositionRole:
     return attractor.xPosition;
@@ -120,7 +120,7 @@ bool AttractorListModel::setData(const QModelIndex &index,
   if (!rowExists(index.row()))
     return false;
 
-  Attractor &attractor = m_attractors[index.row()];
+  AttractorModel &attractor = m_attractors[index.row()];
   bool valueChanged = false;
 
   switch (role) {
@@ -144,7 +144,7 @@ bool AttractorListModel::setData(const QModelIndex &index,
     return false;
   }
   if (valueChanged) {
-    QVector<int> changedRoles = {role};
+    const QVector<int> changedRoles = {role};
     emit dataChanged(index, index, changedRoles);
   }
 
@@ -153,32 +153,34 @@ bool AttractorListModel::setData(const QModelIndex &index,
 
 // helper functions
 namespace {
-Attractor readAtttractor(const QJsonValue &json, int index) {
+AttractorModel readAtttractor(const QJsonValue &json, int index) {
   if (json.type() != QJsonValue::Type::Object) {
     qCritical()
         << QString("Attempted to read attractor at index: %1 and found it not "
                    "to be an expected JsonObject type.")
                .arg(index);
-    return Attractor(0, 0, 0, QColor("black"));
+    return AttractorModel(0, 0, 0, QColor("black"));
   }
 
   const QJsonObject &attractorObj = json.toObject();
 
   JsonReader reader(QString("attractorAtIndex%1").arg(index), attractorObj);
-  double xPos = reader.readProperty(Attractor::xPositionJsonKey()).toDouble();
-  double yPos = reader.readProperty(Attractor::yPositionJsonKey()).toDouble();
-  double forceCoef =
-      reader.readProperty(Attractor::forceCoefficientJsonKey()).toDouble();
-  QColor color = reader.readPropertyAsQColor(Attractor::colorJsonKey());
-  return Attractor(xPos, yPos, forceCoef, color);
+  const double xPos =
+      reader.readProperty(AttractorModel::xPositionJsonKey()).toDouble();
+  const double yPos =
+      reader.readProperty(AttractorModel::yPositionJsonKey()).toDouble();
+  const double forceCoef =
+      reader.readProperty(AttractorModel::forceCoefficientJsonKey()).toDouble();
+  const QColor color =
+      reader.readPropertyAsQColor(AttractorModel::colorJsonKey());
+  return AttractorModel(xPos, yPos, forceCoef, color);
 }
 
-void writeAttractor(QJsonObject &json, const Attractor &attractor)
-{
-  json[Attractor::xPositionJsonKey()] = attractor.xPosition;
-  json[Attractor::yPositionJsonKey()] = attractor.yPosition;
-  json[Attractor::forceCoefficientJsonKey()] = attractor.forceCoefficient;
-  json[Attractor::colorJsonKey()] = attractor.color.name();
+void writeAttractor(QJsonObject &json, const AttractorModel &attractor) {
+  json[AttractorModel::xPositionJsonKey()] = attractor.xPosition;
+  json[AttractorModel::yPositionJsonKey()] = attractor.yPosition;
+  json[AttractorModel::forceCoefficientJsonKey()] = attractor.forceCoefficient;
+  json[AttractorModel::colorJsonKey()] = attractor.color.name();
 }
 
 } // namespace
@@ -198,7 +200,7 @@ void AttractorListModel::read(const QJsonArray &jsonArray) {
 }
 
 void AttractorListModel::write(QJsonArray &jsonArray) const {
-  for (const Attractor &attractor : m_attractors) {
+  for (const AttractorModel &attractor : m_attractors) {
     QJsonObject attractorObj;
     writeAttractor(attractorObj, attractor);
     jsonArray.push_back(attractorObj);

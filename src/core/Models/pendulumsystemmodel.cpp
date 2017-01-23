@@ -29,7 +29,7 @@
 #include <cmath>
 
 namespace staticpendulum {
-PendulumSystemModel::PendulumSystemModel(QObject *parent) : QObject{parent} {
+PendulumSystemModel::PendulumSystemModel(QObject *parent) : QObject(parent) {
   m_pendulumSystem.distance = 0.05;
   m_pendulumSystem.mass = 1.0;
   m_pendulumSystem.gravity = 9.8;
@@ -40,9 +40,9 @@ PendulumSystemModel::PendulumSystemModel(QObject *parent) : QObject{parent} {
   m_attractors.addAttractor(-0.5, yMag, 1, QColor(255, 140, 0));
   m_attractors.addAttractor(-0.5, -yMag, 1, QColor(30, 144, 255));
   m_attractors.addAttractor(1.0, 0.0, 1, QColor(178, 34, 34));
-//  for (int i = 0; i < 1000; ++i) {
-//    m_attractors.addAttractor(1, 2, 3, QColor("orange"));
-//  }
+  //  for (int i = 0; i < 1000; ++i) {
+  //    m_attractors.addAttractor(1, 2, 3, QColor("orange"));
+  //  }
 }
 
 const QString &PendulumSystemModel::modelJsonKey() {
@@ -100,8 +100,8 @@ PendulumSystem PendulumSystemModel::wrappedSystem() const {
 
   auto end = m_attractors.end();
   for (auto iter = m_attractors.begin(); iter != end; ++iter) {
-    result.addAttractor(iter->xPosition, iter->yPosition,
-                        iter->forceCoefficient);
+    result.attractorList.emplace_back(iter->xPosition, iter->yPosition,
+                                      iter->forceCoefficient);
   }
 
   return result;
@@ -148,14 +148,14 @@ void PendulumSystemModel::setLength(double length) {
 }
 
 void PendulumSystemModel::read(const QJsonObject &json) {
-  JsonReader reader("pendulumSystem", json);
+  const JsonReader reader("pendulumSystem", json);
   setDistance(reader.readProperty(distanceJsonKey()).toDouble());
   setMass(reader.readProperty(massJsonKey()).toDouble());
   setGravity(reader.readProperty(gravityJsonKey()).toDouble());
   setDrag(reader.readProperty(dragJsonKey()).toDouble());
   setLength(reader.readProperty(dragJsonKey()).toDouble());
 
-  QJsonValue attractorsJson =
+  const QJsonValue attractorsJson =
       reader.readProperty(attractorsJsonKey(), QJsonValue::Type::Array);
   if (attractorsJson.type() == QJsonValue::Type::Null) {
     return;

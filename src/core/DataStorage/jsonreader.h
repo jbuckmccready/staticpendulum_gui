@@ -22,7 +22,7 @@ public:
   /// Attempts to read the json property as a QColor object. If the property is
   /// not a string or the property as a string is not a valid color name returns
   /// black otherwise returns the color name parsed from the property as a string.
-  QColor readPropertyAsQColor(const QString &propName);
+  QColor readPropertyAsQColor(const QString &propName) const;
 
 private:
   /// Logs that the property was missing when attempting to read.

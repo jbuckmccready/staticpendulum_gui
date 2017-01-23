@@ -1,12 +1,19 @@
 #include "modelsrepo.h"
 #include "DataStorage/jsonreader.h"
+#include <QApplication>
 #include <QDebug>
+#include <QDir>
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
 
 namespace staticpendulum {
-ModelsRepo::ModelsRepo() : QObject(nullptr) {}
+ModelsRepo::ModelsRepo() : QObject(nullptr) {
+  // Make the json files directory if it doesn't exist
+  QDir jsonFilesDir(jsonFilesDirPath());
+  jsonFilesDir.mkpath(".");
+}
+
 PendulumSystemModel *ModelsRepo::pendulumSystemModel() {
   return &m_pendulumSystemModel;
 }
@@ -22,6 +29,11 @@ QObject *ModelsRepo::qmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine) {
   return new ModelsRepo();
 }
 
+const QString &ModelsRepo::jsonFilesDirPath() {
+  static const QString path = QDir::homePath() + "/Documents/staticpendulum/ParameterSets/";
+  return path;
+}
+
 void ModelsRepo::loadJsonFile(const QString &filePath) {
   QFile jsonFile(filePath);
   if (!jsonFile.open(QIODevice::ReadOnly)) {
@@ -30,7 +42,7 @@ void ModelsRepo::loadJsonFile(const QString &filePath) {
     return;
   }
 
-  QByteArray fileData = jsonFile.readAll();
+  const QByteArray fileData = jsonFile.readAll();
   QJsonParseError parseError;
   QJsonDocument jsonDoc = QJsonDocument::fromJson(fileData, &parseError);
   if (parseError.error != QJsonParseError::NoError) {
@@ -41,7 +53,7 @@ void ModelsRepo::loadJsonFile(const QString &filePath) {
 
   QJsonObject rootObj = jsonDoc.object();
 
-  JsonReader reader("root", rootObj);
+  const JsonReader reader("root", rootObj);
 
   QJsonObject pendulumSystemObj =
       reader
@@ -65,12 +77,12 @@ void ModelsRepo::loadJsonFile(const QString &filePath) {
   m_pendulumMapModel.read(pendulumMapObj);
 }
 
-void ModelsRepo::saveJsonFile(const QString &filePath) {
+bool ModelsRepo::saveJsonFile(const QString &filePath) const {
   QFile jsonFile(filePath);
   if (!jsonFile.open(QIODevice::WriteOnly)) {
     qCritical() << QString("Could not write to file location: %1. Error: %2")
                        .arg(filePath, jsonFile.errorString());
-    return;
+    return false;
   }
 
   QJsonObject rootObject;
@@ -89,5 +101,11 @@ void ModelsRepo::saveJsonFile(const QString &filePath) {
 
   QJsonDocument jsonDoc(rootObject);
   jsonFile.write(jsonDoc.toJson());
+  return true;
+}
+
+void ModelsRepo::deleteJsonFile(const QString &filePath) const {
+  QFile file(filePath);
+  file.remove();
 }
 } // namespace staticpendulum

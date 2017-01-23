@@ -21,11 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  * ===========================================================================*/
+import CommonControls 1.0 as CC
+import ModelsRepo 1.0
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
-import CommonControls 1.0
-import ModelsRepo 1.0
 
 ColumnLayout {
   id: rootColumn
@@ -40,22 +40,9 @@ ColumnLayout {
 
     spacing: -1 // creates the grid effect with rectangle borders in delegate
 
-    ScrollBar.vertical: ScrollBar {
+    ScrollBar.vertical: CC.ScrollBar {
       id: scrollBar
-      active: true
-      contentItem: Rectangle {
-        implicitWidth: 10
-        implicitHeight: 100
-        radius: width / 2
-        color: "darkgreen"
-        border.width: scrollBar.pressed ? 2 : 0
-        border.color: "lightgreen"
-      }
-      background: Rectangle {
-        implicitHeight: attractorsListView.height
-        implicitWidth: 10
-        color: "grey"
-      }
+      backgroundHeight: attractorsListView.height
     }
     clip: true // keeps the listview contents within its bounding box
     boundsBehavior: Flickable.StopAtBounds // disables overshoot and rebound
@@ -123,7 +110,7 @@ ColumnLayout {
               // enable only if current item or input is valid, adds nice visual cue when input is invalid
               enabled: attractorsListView.currentIndex === model.index || attractorsListView.currentItem.hasValidInput
 
-              TextFieldWithNumericValidation {
+              CC.TextFieldWithNumericValidation {
                 id: xPositionField
                 Layout.fillWidth: true
                 focus: true
@@ -131,7 +118,7 @@ ColumnLayout {
                 onTextAsDoubleChanged: model.xPosition = textAsDouble
                 z: (activeFocus || !xPositionField.acceptableInput) ? 1 : -1
               }
-              TextFieldWithNumericValidation {
+              CC.TextFieldWithNumericValidation {
                 id: yPositionField
                 Layout.fillWidth: true
                 bindedModelValue: model.yPosition
@@ -139,7 +126,7 @@ ColumnLayout {
 
                 z: (activeFocus || !yPositionField.acceptableInput) ? 1 : -1
               }
-              TextFieldWithNumericValidation {
+              CC.TextFieldWithNumericValidation {
                 id: forceCoefficientField
                 Layout.fillWidth: true
                 bindedModelValue: model.forceCoefficient
@@ -232,8 +219,9 @@ ColumnLayout {
           return;
         }
 
-        var bottomItemIndex = attractorsListView.indexAt(attractorsListView.contentX,
-                                                         attractorsListView.contentY + attractorsListView.height - 20);
+        var bottomItemIndex =
+            attractorsListView.indexAt(attractorsListView.contentX,
+                                       attractorsListView.contentY + attractorsListView.height - 20);
         if (bottomItemIndex < attractorsListView.currentIndex && bottomItemIndex !== -1) {
           attractorsListView.positionViewAtIndex(attractorsListView.currentIndex, ListView.Center);
           return;
@@ -249,7 +237,7 @@ ColumnLayout {
     // asynchronous == true to load the ColorDialog in another thread
     asynchronous: true
 
-    sourceComponent: ColorDialog {}
+    sourceComponent: CC.ColorDialog {}
   }
 }
 

@@ -27,8 +27,8 @@
 namespace staticpendulum {
 Map::Map(double xStart, double yStart, double xEnd, double yEnd,
              double resolution)
-    : m_xStart{xStart}, m_yStart{yStart}, m_xEnd{xEnd}, m_yEnd{yEnd},
-      m_resolution{resolution} {
+    : m_xStart(xStart), m_yStart(yStart), m_xEnd(xEnd), m_yEnd(yEnd),
+      m_resolution(resolution) {
   // column and row count, +1 to make it an inclusive range
   m_cols = std::lround(std::abs((m_xEnd - m_xStart) / m_resolution)) + 1;
   m_rows = std::lround(std::abs((m_yEnd - m_yStart) / m_resolution)) + 1;
@@ -42,7 +42,7 @@ Map::Map(double xStart, double yStart, double xEnd, double yEnd,
   for (std::size_t i = 0; i < m_rows; ++i) {
     for (std::size_t j = 0; j < m_cols; ++j) {
       // data is row major oriented
-      std::size_t index = i * m_cols + j;
+      const std::size_t index = i * m_cols + j;
 
       m_mapData[index].xPosition =
           static_cast<double>(xdim_factor) * m_resolution;

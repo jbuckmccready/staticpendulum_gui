@@ -21,13 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  * ===========================================================================*/
+import QmlHelpers 1.0
+import ParameterPages 1.0
+import ModelsRepo 1.0
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
-import QmlHelpers 1.0
-import ParameterPages 1.0
-import ModelsRepo 1.0
 
 ApplicationWindow {
   id: applicationWindow
@@ -37,6 +37,7 @@ ApplicationWindow {
   minimumHeight: 480
   minimumWidth: 640
   visible: true
+
 
   Connections {
     // connect to the aboutToQuit signal to cancel integration to prevent
@@ -49,17 +50,12 @@ ApplicationWindow {
     id: applicationToolBar
     RowLayout {
       ToolButton {
-        text: qsTr("Load")
+        text: qsTr("Manage Sets")
         onClicked: {
-          ModelsRepo.loadJsonFile("test.json");
+          testP.open()
+//          ModelsRepo.loadJsonFile("test.json");
         }
 
-      }
-      ToolButton {
-        text: qsTr("Save")
-        onClicked: {
-          ModelsRepo.saveJsonFile("test.json");
-        }
       }
       ToolButton {
         text: qsTr("Integrate")
@@ -74,6 +70,9 @@ ApplicationWindow {
         }
       }
     }
+  }
+  ParameterSetManager {
+    id: testP
   }
 
   SystemIntegrator {
@@ -227,3 +226,21 @@ ApplicationWindow {
     }
   }
 }
+
+//import QtQuick 2.7
+//import QtQuick.Controls 2.0
+//import QtQuick.Window 2.2
+
+//ApplicationWindow {
+//  id: applicationWindow
+//  title: qsTr("staticpendulum")
+//  width: 640
+//  height: 480
+//  minimumHeight: 480
+//  minimumWidth: 640
+//  visible: true
+//  Text {
+//    text: "hello world"
+//  }
+//}
+

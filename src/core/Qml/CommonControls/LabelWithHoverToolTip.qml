@@ -29,9 +29,6 @@ Label {
   id: label
   property alias toolTipText: toolTip.text
 
-
-  text: "Pendulum Distance:"
-
   MouseArea {
     id: mouseArea
     anchors.fill: parent

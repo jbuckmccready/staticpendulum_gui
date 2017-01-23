@@ -59,7 +59,7 @@ QJsonValue JsonReader::readProperty(const QString &propName,
   return result;
 }
 
-QColor JsonReader::readPropertyAsQColor(const QString &propName) {
+QColor JsonReader::readPropertyAsQColor(const QString &propName) const {
 
   QJsonValue result = readProperty(propName, QJsonValue::Type::String);
   if (result.type() == QJsonValue::Type::Null) {

@@ -2,3 +2,4 @@ module CommonControls
 ColorDialog 1.0 ColorDialog.qml
 LabelWithHoverToolTip 1.0 LabelWithHoverToolTip.qml
 TextFieldWithNumericValidation 1.0 TextFieldWithNumericValidation.qml
+ScrollBar 1.0 ScrollBar.qml
