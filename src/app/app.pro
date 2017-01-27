@@ -1,6 +1,6 @@
 TEMPLATE = app
 QT += core concurrent qml quick widgets quickcontrols2
-CONFIG += c++14 warn_on static
+CONFIG += c++14 warn_on
 QMAKE_CXXFLAGS += -pedantic
 QMAKE_CXXFLAGS_RELEASE += -ffast-math -O3
 QMAKE_CXXFLAGS_RELEASE -= -O2
