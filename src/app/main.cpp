@@ -31,6 +31,11 @@
 #include <QtQml>
 
 int main(int argc, char *argv[]) {
+  // Smoother rendering when resizing the window using the basic render loop
+  // see: http://doc.qt.io/qt-5/qtquick-visualcanvas-scenegraph.html
+  // for details of how it works
+  qputenv("QSG_RENDER_LOOP", "basic");
+
   QApplication app(argc, argv);
 
   using namespace staticpendulum;
