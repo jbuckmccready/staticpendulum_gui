@@ -29,12 +29,26 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QtQml>
+#include <QQuickWindow>
 
 int main(int argc, char *argv[]) {
+  // uncomment and modify for additional logging
+  // see: http://doc.qt.io/qt-5/qloggingcategory.html
+//  qputenv("QT_LOGGING_RULES", "qt.scenegraph.general=false;qt.scenegraph.time.renderloop=false;qt.scenegraph.time.renderer=false;qt.qpa.gl=true");
+
+
   // Smoother rendering when resizing the window using the basic render loop
   // see: http://doc.qt.io/qt-5/qtquick-visualcanvas-scenegraph.html
   // for details of how it works
   qputenv("QSG_RENDER_LOOP", "basic");
+
+  // Qt::AA_UseSoftwareOpenGL will attempt to force the use of opengl32sw.dll
+  // can be deployed with the llvm mesa library
+//  QApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
+
+  // Setting the scene graph backend to software will use the internal Qt
+  // QSG software renderer
+//  QQuickWindow::setSceneGraphBackend(QSGRendererInterface::Software);
 
   QApplication app(argc, argv);
 

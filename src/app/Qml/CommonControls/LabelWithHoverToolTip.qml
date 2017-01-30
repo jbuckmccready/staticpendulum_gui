@@ -28,6 +28,8 @@ import QtQuick.Controls 2.0
 Label {
   id: label
   property alias toolTipText: toolTip.text
+  // default to plaintext for performance
+  textFormat: Text.PlainText
 
   MouseArea {
     id: mouseArea

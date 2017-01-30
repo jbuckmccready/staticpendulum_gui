@@ -4,7 +4,7 @@ CONFIG += staticlib c++14 warn_on
 QMAKE_CXXFLAGS += -pedantic
 QMAKE_CXXFLAGS_RELEASE += -ffast-math -O3 -march=native
 QMAKE_CXXFLAGS_RELEASE -= -O2
-#QMAKE_LFLAGS_RELEASE += -static
+QMAKE_LFLAGS_RELEASE += -flto
 
 # Qt deprecation warnings
 DEFINES += QT_DEPRECATED_WARNINGS
