@@ -1,20 +1,11 @@
 TEMPLATE = app
+include (../shared_config.pri)
 QT += core concurrent qml quick widgets quickcontrols2
-CONFIG += c++14 warn_on
-QMAKE_CXXFLAGS += -pedantic
-QMAKE_CXXFLAGS_RELEASE += -ffast-math -O3
-QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_LFLAGS_RELEASE += -flto
 DEFINES += QT_DEPRECATED_WARNINGS
 
 TARGET = staticpendulum_gui
 
 SOURCES += main.cpp
-
-# Import path added to help Qt Creator resolve QML modules
-# actual import happens in the app main.cpp and imports the qml.qrc
-QML_IMPORT_PATH += $$PWD/Qml
-
 
 # Including core static library
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../core/release/ -lcore

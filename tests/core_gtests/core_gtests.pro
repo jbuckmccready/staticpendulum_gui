@@ -5,7 +5,7 @@ CONFIG -= app_bundle
 CONFIG += thread
 CONFIG += qt
 QT += core
-QMAKE_CXXFLAGS_RELEASE += -ffast-math -O3 -march=native
+QMAKE_CXXFLAGS_RELEASE += -ffast-math -O3
 QMAKE_CXXFLAGS_RELEASE -= -O2
 
 HEADERS += \

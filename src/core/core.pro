@@ -1,13 +1,8 @@
 TEMPLATE = lib
-QT += core concurrent qml widgets
-CONFIG += staticlib c++14 warn_on
-QMAKE_CXXFLAGS += -pedantic
-QMAKE_CXXFLAGS_RELEASE += -ffast-math -O3 -march=native
-QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_LFLAGS_RELEASE += -flto
+include (../shared_config.pri)
+QT += core concurrent
+CONFIG += staticlib
 
-# Qt deprecation warnings
-DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     CoreEngine/cashkarp54.h \
