@@ -1,6 +1,5 @@
 #include "modelsrepo.h"
 #include "DataStorage/jsonreader.h"
-#include <QApplication>
 #include <QDebug>
 #include <QDir>
 #include <QFile>
